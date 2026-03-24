@@ -5,14 +5,17 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
+    "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "config": {
+        "googleMapsApiKey": "AIzaSyD_At6XWhj78Q2j7Gz9KHJzNdo1ygMHA6Q"
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -21,10 +24,27 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.anonymous.ciclepark",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyD_At6XWhj78Q2j7Gz9KHJzNdo1ygMHA6Q"
+        }
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": [
+      "expo-dev-client",
+      "react-native-edge-to-edge",
+      "expo-localization",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "CiclePark usa tu ubicación para mostrarte en el mapa y encontrar aparcamientos cercanos."
+        }
+      ]
+    ]
   }
 }
