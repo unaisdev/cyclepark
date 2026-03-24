@@ -1,74 +1,75 @@
-# Reglas de negocio — CiclePark
+# Business rules — CiclePark
 
-Documento vivo. Las reglas marcadas como **PENDIENTE** o **[DECIDIR]** deben cerrarse antes o durante el desarrollo.
-
----
-
-## 1. Entidad: Spot (aparcamiento)
-
-| ID | Regla | Estado |
-|----|--------|--------|
-| BR-SP-01 | Un spot tiene **coordenadas** (lat/lng) y opcionalmente metadatos mínimos (p. ej. dirección aproximada si el backend la resuelve). | Activa |
-| BR-SP-02 | Dos spots no pueden ocupar **exactamente** las mismas coordenadas **[DECIDIR umbral de fusión]** (p. ej. &lt; 10 m → mismo spot o sugerir unificar). | Pendiente |
-| BR-SP-03 | El creador del spot queda registrado en servidor si hay autenticación; si el MVP es anónimo, **[DECIDIR]** política de abuso. | Pendiente |
+Living document. Rules marked **TODO** or **[TBD]** should be closed before or during development.
 
 ---
 
-## 2. Fotos
+## 1. Entity: Spot (parking)
 
-| ID | Regla | Estado |
-|----|--------|--------|
-| BR-PH-01 | Al crear un spot, la foto es **[DECIDIR: obligatoria vs “fuertemente recomendada”]**; si es opcional, el spot puede nacer sin foto y mostrar estado vacío en detalle. | Pendiente |
-| BR-PH-02 | Una foto pertenece a **un** spot; orden por fecha de subida (más reciente primero) salvo **[DECIDIR]**. | Activa (propuesta) |
-| BR-PH-03 | Límites: tamaño máximo, formato (JPEG/WEBP), y número máximo de fotos por spot/usuario **[DECIDIR]**. | Pendiente |
-| BR-PH-04 | Moderación: **[DECIDIR]** manual, reportes, filtro automático — MVP puede ser “reportar” en iteración posterior. | Pendiente |
-
----
-
-## 3. Votos (seguro / no seguro)
-
-| ID | Regla | Estado |
-|----|--------|--------|
-| BR-VT-01 | Voto **binario**: “Seguro” / “No seguro” (equivalente 👍 / 👎). | Activa |
-| BR-VT-02 | **Un voto por usuario y spot** **[DECIDIR]** si se permite cambiar de opinión (recomendado: sí, último voto gana). | Pendiente |
-| BR-VT-03 | Agregación mostrada en UI: **[DECIDIR]** formato exacto (`+12 / -3`, porcentaje, ambos). | Pendiente |
-| BR-VT-04 | Con **cero votos**, el marcador es **neutro** (sin sesgo positivo/negativo). | Activa |
-| BR-VT-05 | Criterio de color del marcador **[DECIDIR]**: p. ej. verde si `positivos - negativos ≥ umbral` y ratio &gt; X; rojo si al revés; gris si empate bajo umbral o sin datos. | Pendiente |
+| ID | Rule | Status |
+|----|------|--------|
+| BR-SP-01 | A spot has **coordinates** (lat/lng) and optionally minimal metadata (e.g. approximate address if the backend resolves it). | Active |
+| BR-SP-02 | Two spots cannot occupy **exactly** the same coordinates **[TBD merge threshold]** (e.g. < 10 m → same spot or prompt to merge). | Pending |
+| BR-SP-03 | Spot creator is recorded on the server if auth exists; if the MVP is anonymous, **[TBD]** abuse policy. | Pending |
 
 ---
 
-## 4. Estados del marcador en mapa
+## 2. Photos
 
-| Estado | Significado propuesto |
-|--------|------------------------|
-| **Neutro** | Sin votos o empate / por debajo del umbral **[DECIDIR]**. |
-| **Positivo (verde)** | Consenso favorable según fórmula acordada. |
-| **Negativo (rojo)** | Consenso desfavorable según fórmula acordada. |
-
-> **PENDIENTE:** Definir fórmula y si los spots **sin foto** se tratan distinto en el mapa (p. ej. siempre neutro hasta primera foto).
-
----
-
-## 5. Privacidad, legal y ubicación
-
-| ID | Regla | Estado |
-|----|--------|--------|
-| BR-LC-01 | La app solicita permiso de **ubicación**; sin permiso, el mapa puede centrarse en una ciudad por defecto o pedir búsqueda **[DECIDIR]**. | Pendiente |
-| BR-LC-02 | Texto legal: Términos, privacidad, uso de imágenes **[DECIDIR]** quién redacta y cuándo se muestra (registro vs primera contribución). | Pendiente |
+| ID | Rule | Status |
+|----|------|--------|
+| BR-PH-01 | When creating a spot, the photo is **[TBD: required vs “strongly recommended”]**; if optional, the spot may start without a photo and show an empty state in detail. | Pending |
+| BR-PH-02 | A photo belongs to **one** spot; order by upload date (newest first) unless **[TBD]**. | Active (proposal) |
+| BR-PH-03 | Limits: max size, format (JPEG/WEBP), and max photos per spot/user **[TBD]**. | Pending |
+| BR-PH-04 | Moderation: **[TBD]** manual, reports, automatic filter — MVP may defer to a later “report” iteration. | Pending |
 
 ---
 
-## 6. Sincronización y offline (MVP)
+## 3. Votes (safe / not safe)
 
-| ID | Regla | Estado |
-|----|--------|--------|
-| BR-SY-01 | MVP: **[DECIDIR]** solo online vs cola offline para crear spot/voto/foto. | Pendiente |
-| BR-SY-02 | En error de red: mensaje claro y reintento; no perder datos del formulario si es posible. | Activa (propuesta) |
+| ID | Rule | Status |
+|----|------|--------|
+| BR-VT-01 | Vote is **binary**: “Safe” / “Not safe” (equivalent to 👍 / 👎). | Active |
+| BR-VT-02 | **One vote per user per spot** **[TBD]** whether opinion can change (recommended: yes, last vote wins). | Pending |
+| BR-VT-03 | Aggregation shown in UI: **[TBD]** exact format (`+12 / -3`, percentage, both). | Pending |
+| BR-VT-04 | With **zero votes**, the marker is **neutral** (no positive/negative bias). | Active |
+| BR-VT-05 | Marker color rule **[TBD]**: e.g. green if `positives - negatives ≥ threshold` and ratio > X; red if the opposite; gray if tie below threshold or no data. | Pending |
 
 ---
 
-### Historial de este archivo
+## 4. Map marker states
 
-| Fecha | Cambio |
-|-------|--------|
-| 2026-03-23 | Versión inicial con IDs de regla y huecos explícitos para decisión. |
+| State | Proposed meaning |
+|-------|------------------|
+| **Neutral** | No votes or tie / below threshold **[TBD]**. |
+| **Positive (green)** | Favourable consensus per agreed formula. |
+| **Negative (red)** | Unfavourable consensus per agreed formula. |
+
+> **TODO:** Define the formula and whether spots **without a photo** are treated differently on the map (e.g. always neutral until the first photo).
+
+---
+
+## 5. Privacy, legal, and location
+
+| ID | Rule | Status |
+|----|------|--------|
+| BR-LC-01 | The app requests **location** permission; without permission, the map may default to a city or prompt search **[TBD]**. | Pending |
+| BR-LC-02 | Legal copy: Terms, privacy, image use **[TBD]** who drafts and when it is shown (signup vs first contribution). | Pending |
+
+---
+
+## 6. Sync and offline (MVP)
+
+| ID | Rule | Status |
+|----|------|--------|
+| BR-SY-01 | MVP: **[TBD]** online-only vs offline queue for create spot/vote/photo. | Pending |
+| BR-SY-02 | On network error: clear message and retry; do not lose form data when possible. | Active (proposal) |
+
+---
+
+### Change history (this file)
+
+| Date | Change |
+|------|--------|
+| 2026-03-23 | Initial version with rule IDs and explicit decision gaps. |
+| 2026-03-24 | Translated to English (`PENDIENTE` → `TODO`, `[DECIDIR]` → `[TBD]`). |

@@ -1,51 +1,52 @@
-# Alcance de producto — CiclePark
+# Product scope — CiclePark
 
-## Objetivo
+## Goal
 
-Ayudar al usuario a responder rápidamente: **“¿Puedo aparcar mi bici aquí con seguridad?”**
+Help the user answer quickly: **“Can I park my bike here safely?”**
 
-La app prioriza **velocidad**, **claridad visual** y **contribución fácil** (fotos y votos).
+The app prioritises **speed**, **visual clarity**, and **easy contribution** (photos and votes).
 
-## Usuario objetivo
+## Target user
 
-- Ciclistas urbanos, uso diario u ocasional.
-- Uso en calle, a menudo con **una mano** y poco tiempo.
-- Baja tolerancia a curva de aprendizaje.
+- Urban cyclists, daily or occasional use.
+- On the street, often **one-handed** and short on time.
+- Low tolerance for a steep learning curve.
 
-## Principios de UX (recordatorio)
+## UX principles (reminder)
 
-- Cero fricción; decisión en **menos de ~3 segundos** cuando sea posible.
-- **Fotos antes que texto** para generar confianza.
-- Fomentar **contribución** sin complicar el consumo.
+- Zero friction; aim for a decision in **under ~3 seconds** when possible.
+- **Photos before text** to build trust.
+- Encourage **contribution** without complicating consumption.
 
-## MVP — Incluido
+## MVP — In scope
 
-- **Home / mapa:** aparcamientos cercanos con marcadores por estado (sin datos / positivo / negativo).
-- **Detalle de aparcamiento:** galería, puntuación simple, votos 👍 / 👎, añadir foto.
-- **Añadir aparcamiento:** confirmar ubicación en mapa, foto (requerida o fuertemente recomendada según reglas de negocio), guardar.
+- **Home / map:** nearby parking spots with markers by state (no data / positive / negative).
+- **Spot detail:** gallery, simple score, 👍 / 👎 votes, add photo.
+- **Add parking:** confirm location on map, photo (required or strongly recommended per business rules), save.
 
-## Fuera de alcance (MVP explícito)
+## Out of scope (explicit MVP)
 
-- Perfiles de usuario, social, comentarios largos, gamificación.
-- Navegación compleja o muchas secciones.
+- User profiles, social, long comments, gamification.
+- Complex navigation or many sections.
 
-## Glosario
+## Glossary
 
-| Término | Definición operativa |
-|---------|----------------------|
-| **Spot** | Punto de aparcamiento en el mapa (entidad principal). |
-| **Voto** | Indicación binaria de percepción de seguridad (a favor / en contra). |
-| **Estado del marcador** | Derivado de agregados de votos y/o falta de datos (ver [business-rules.md](./business-rules.md)). |
-| **Contribución** | Crear spot y/o subir foto y/o votar. |
+| Term | Operational definition |
+|------|-------------------------|
+| **Spot** | Parking point on the map (main entity). |
+| **Vote** | Binary indication of perceived safety (for / against). |
+| **Marker state** | Derived from vote aggregates and/or missing data (see [business-rules.md](./business-rules.md)). |
+| **Contribution** | Create spot and/or upload photo and/or vote. |
 
-## Métricas de éxito (borrador)
+## Success metrics (draft)
 
-> **PENDIENTE:** Definir KPIs (p. ej. tiempo hasta primera decisión, tasa de contribución, retención).
+> **TODO:** Define KPIs (e.g. time to first decision, contribution rate, retention).
 
 ---
 
-### Historial de este archivo
+### Change history (this file)
 
-| Fecha | Cambio |
-|-------|--------|
-| 2026-03-23 | Versión inicial. |
+| Date | Change |
+|------|--------|
+| 2026-03-23 | Initial version. |
+| 2026-03-24 | Translated to English. |

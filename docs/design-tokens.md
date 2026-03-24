@@ -1,198 +1,198 @@
-# Tokens de color — CiclePark
+# Color tokens — CiclePark
 
-**CiclePark Transit** es el nombre del **tema de app** (marca + interfaz): superficies, textos y **color primario teal**. No incluye verde ni rojo de seguridad.
+**CiclePark Transit** is the name of the **app theme** (brand + UI): surfaces, text, and **primary teal**. It does not include safety green or red.
 
-**Regla de oro:** el **teal** (`app-primary`) es identidad y acciones de producto. El **verde** y el **rojo** existen **solo** en la capa **`feedback-*`** del sistema de diseño (mapa, votos, banners semánticos). Esos colores **no** deben configurarse como `secondary` ni `tertiary` del tema Transit en Stitch/Material.
-
----
-
-## 1. Dos capas de color
-
-| Capa | Rol | Ejemplos de uso |
-|------|-----|------------------|
-| **App** (tema **CiclePark Transit**) | Marca, superficies, texto, bordes, CTA principal | Fondos, barras, FAB “añadir”, Guardar, enlaces de marca |
-| **Feedback** (sistema de diseño, aparte) | Estado semántico y **mapa** | Marcadores, 👍/👎, éxito/error |
-
-Prohibido mezclar: no usar `app-primary` para “aparcamiento seguro”. Para eso existe `feedback-success`.
+**Golden rule:** **teal** (`app-primary`) is brand identity and product actions. **Green** and **red** exist **only** in the **`feedback-*`** design-system layer (map, votes, semantic banners). Those colors must **not** be configured as Transit `secondary` or `tertiary` in Stitch/Material.
 
 ---
 
-## 2. Capa **App** — tema CiclePark Transit
+## 1. Two color layers
 
-Solo colores **principales** de producto: neutros + teal. Origen: superficies legibles al aire libre y primario de marca.
+| Layer | Role | Example uses |
+|-------|------|----------------|
+| **App** ( **CiclePark Transit** theme) | Brand, surfaces, text, borders, primary CTA | Backgrounds, bars, “add” FAB, Save, brand links |
+| **Feedback** (design system, separate) | Semantic state and **map** | Markers, 👍/👎, success/error |
 
-### Modo claro
+Do not mix: do not use `app-primary` for “safe parking”. Use `feedback-success` for that.
 
-| Token | Hex | Uso |
+---
+
+## 2. **App** layer — CiclePark Transit theme
+
+Core **product** colors only: neutrals + teal. Rationale: readable outdoors and brand primary.
+
+### Light mode
+
+| Token | Hex | Use |
 |-------|-----|-----|
-| `app-background` | `#F7F8F8` | Fondo raíz (pantallas no mapa / listas) |
-| `app-surface` | `#FFFFFF` | Tarjetas, hojas, bottom bar |
-| `app-surface-muted` | `#F3F4F4` | Zonas agrupadas, inputs inactivos |
-| `app-surface-highest` | `#E8E9E9` | Separación suave entre bloques (sin líneas duras) |
-| `app-text-primary` | `#1A1C1C` | Títulos y cuerpo principal |
-| `app-text-secondary` | `#474747` | Subtítulos, metadata |
+| `app-background` | `#F7F8F8` | Root background (non-map screens / lists) |
+| `app-surface` | `#FFFFFF` | Cards, sheets, bottom bar |
+| `app-surface-muted` | `#F3F4F4` | Grouped areas, inactive inputs |
+| `app-surface-highest` | `#E8E9E9` | Soft separation between blocks (no hard lines) |
+| `app-text-primary` | `#1A1C1C` | Titles and main body |
+| `app-text-secondary` | `#474747` | Subtitles, metadata |
 | `app-text-muted` | `#6E6E6E` | Placeholder, hints |
-| `app-text-disabled` | `#9E9E9E` | Deshabilitado (cumplir también opacidad ~0.38 en controles) |
-| `app-border-subtle` | `#C6C6C6` | Bordes fantasma, dashed upload (baja opacidad si aplica) |
-| `app-primary` | `#00665C` | FAB, CTA principal de marca, enlaces activos |
-| `app-primary-container` | `#008175` | Variante más clara (gradientes, estados hover en web) |
-| `app-on-primary` | `#FFFFFF` | Texto/icono sobre `app-primary` |
-| `app-primary-pressed` | `#005048` | Pulsado (Android ripple / iOS highlight) |
-| `app-overlay-scrim` | `#1A1C1C` al **55%** | Modales, bottom sheet sobre mapa |
+| `app-text-disabled` | `#9E9E9E` | Disabled (also use ~0.38 opacity on controls) |
+| `app-border-subtle` | `#C6C6C6` | Ghost borders, dashed upload (lower opacity if needed) |
+| `app-primary` | `#00665C` | FAB, brand primary CTA, active links |
+| `app-primary-container` | `#008175` | Lighter variant (gradients, hover on web) |
+| `app-on-primary` | `#FFFFFF` | Text/icon on `app-primary` |
+| `app-primary-pressed` | `#005048` | Pressed (Android ripple / iOS highlight) |
+| `app-overlay-scrim` | `#1A1C1C` at **55%** | Modals, bottom sheet over map |
 
-### Modo oscuro
+### Dark mode
 
-| Token | Hex | Uso |
+| Token | Hex | Use |
 |-------|-----|-----|
-| `app-background` | `#121212` | Fondo raíz |
-| `app-surface` | `#1E1E1E` | Tarjetas y barras elevadas |
-| `app-surface-muted` | `#2C2C2C` | Agrupación |
-| `app-surface-highest` | `#383838` | Troughs, pistas de progreso |
-| `app-text-primary` | `#E8E8E8` | Texto principal |
-| `app-text-secondary` | `#B0B0B0` | Secundario |
+| `app-background` | `#121212` | Root background |
+| `app-surface` | `#1E1E1E` | Cards and elevated bars |
+| `app-surface-muted` | `#2C2C2C` | Grouping |
+| `app-surface-highest` | `#383838` | Troughs, progress tracks |
+| `app-text-primary` | `#E8E8E8` | Main text |
+| `app-text-secondary` | `#B0B0B0` | Secondary |
 | `app-text-muted` | `#8A8A8A` | Hints |
-| `app-text-disabled` | `#616161` | Deshabilitado |
-| `app-border-subtle` | `#5C5C5C` | Bordes sutiles |
-| `app-primary` | `#4ECDC4` | CTA marca (teal legible sobre oscuro) |
-| `app-primary-container` | `#006A60` | Contenedores tintados |
-| `app-on-primary` | `#00332E` | Texto sobre primary claro en dark **[ajustar contraste en implementación]** |
-| `app-primary-pressed` | `#3DBDB4` | Pulsado |
-| `app-overlay-scrim` | `#000000` al **60%** | Scrim |
+| `app-text-disabled` | `#616161` | Disabled |
+| `app-border-subtle` | `#5C5C5C` | Subtle borders |
+| `app-primary` | `#4ECDC4` | Brand CTA (readable teal on dark) |
+| `app-primary-container` | `#006A60` | Tinted containers |
+| `app-on-primary` | `#00332E` | Text on light primary in dark **[tune contrast in implementation]** |
+| `app-primary-pressed` | `#3DBDB4` | Pressed |
+| `app-overlay-scrim` | `#000000` at **60%** | Scrim |
 
-> **Nota:** Si `app-on-primary` en oscuro no pasa WCAG sobre `app-primary`, subir peso de texto o oscurecer el teal hasta cumplir **4.5:1**.
+> **Note:** If `app-on-primary` in dark fails WCAG on `app-primary`, increase text weight or darken teal until **4.5:1**.
 
-### `secondary` y `tertiary` en Stitch / Material 3
+### `secondary` and `tertiary` in Stitch / Material 3
 
-En muchas plantillas, **Secondary** y **Tertiary** son huecos obligatorios. En CiclePark **no** representan “seguro” ni “peligroso”. Si debes rellenarlos, usa **neutros fríos** que acompañen al teal; el verde y el rojo viven **únicamente** en `feedback-*`.
+Many templates require **Secondary** and **Tertiary** slots. In CiclePark they do **not** mean “safe” or “dangerous”. If you must fill them, use **cool neutrals** alongside teal; green and red live **only** in `feedback-*`.
 
-| Rol plantilla (M3 / Stitch) | Qué NO hacer | Asignación recomendada en CiclePark |
-|-----------------------------|---------------|-------------------------------------|
-| `secondary` | ❌ Verde | Neutro: p. ej. contenedor `#ECEFF1`, texto/icono `#546E7A` |
-| `tertiary` | ❌ Rojo | Neutro: p. ej. `#78909C` para iconografía terciaria o divisores |
+| Template role (M3 / Stitch) | What **not** to do | Recommended mapping in CiclePark |
+|-----------------------------|--------------------|----------------------------------|
+| `secondary` | ❌ Green | Neutral: e.g. container `#ECEFF1`, text/icon `#546E7A` |
+| `tertiary` | ❌ Red | Neutral: e.g. `#78909C` for tertiary icons or dividers |
 
-Tokens opcionales si quieres nombrarlos en código:
+Optional tokens if you name them in code:
 
-| Token | Hex (claro) | Uso |
+| Token | Hex (light) | Use |
 |-------|-------------|-----|
-| `app-neutral-secondary` | `#546E7A` | Botón outline, iconos de apoyo |
-| `app-neutral-secondary-container` | `#ECEFF1` | Fondo de chip / filtro inactivo |
-| `app-on-neutral-secondary-container` | `#37474F` | Texto sobre ese contenedor |
-| `app-neutral-tertiary` | `#78909C` | Menos jerarquía visual (nunca semántica) |
+| `app-neutral-secondary` | `#546E7A` | Outline button, support icons |
+| `app-neutral-secondary-container` | `#ECEFF1` | Inactive chip / filter background |
+| `app-on-neutral-secondary-container` | `#37474F` | Text on that container |
+| `app-neutral-tertiary` | `#78909C` | Lower visual hierarchy (never semantic) |
 
-Si la herramienta permite **dejar sin usar** secondary/tertiary en componentes, prioriza solo `app-*` de la tabla principal y `feedback-*` donde toque.
+If the tool allows **leaving** secondary/tertiary unused in components, prefer only main-table `app-*` and `feedback-*` where needed.
 
 ---
 
-## 3. Capa **Feedback** (sistema de diseño)
+## 3. **Feedback** layer (design system)
 
-Definición **independiente** del tema Transit. Verde y rojo **solo** aquí.
+Defined **independently** of the Transit theme. Green and red **only** here.
 
-### Éxito / seguro (verde)
+### Success / safe (green)
 
-| Token | Hex (claro) | Hex (oscuro) | Uso |
-|-------|-------------|--------------|-----|
-| `feedback-success` | `#2E7D32` | `#81C784` | Marcador “seguro”, 👍 activo, éxito claro |
-| `feedback-success-container` | `#E8F5E9` | `#1B3D1F` | Fondos de chip/banner positivo |
-| `feedback-success-on-container` | `#1B5E20` | `#C8E6C9` | Texto/icono sobre container |
+| Token | Hex (light) | Hex (dark) | Use |
+|-------|---------------|------------|-----|
+| `feedback-success` | `#2E7D32` | `#81C784` | “Safe” marker, active 👍, clear success |
+| `feedback-success-container` | `#E8F5E9` | `#1B3D1F` | Positive chip/banner backgrounds |
+| `feedback-success-on-container` | `#1B5E20` | `#C8E6C9` | Text/icon on container |
 
-### Error / peligro (rojo)
+### Error / danger (red)
 
-| Token | Hex (claro) | Hex (oscuro) | Uso |
-|-------|-------------|--------------|-----|
-| `feedback-error` | `#C62828` | `#EF5350` | Marcador “no seguro”, 👎 activo, errores |
-| `feedback-error-container` | `#FFEBEE` | `#3E1A1C` | Fondos de alerta suave |
-| `feedback-error-on-container` | `#B71C1C` | `#FFCDD2` | Texto sobre container |
+| Token | Hex (light) | Hex (dark) | Use |
+|-------|---------------|------------|-----|
+| `feedback-error` | `#C62828` | `#EF5350` | “Not safe” marker, active 👎, errors |
+| `feedback-error-container` | `#FFEBEE` | `#3E1A1C` | Soft alert backgrounds |
+| `feedback-error-on-container` | `#B71C1C` | `#FFCDD2` | Text on container |
 
-### Advertencia (opcional, MVP)
+### Warning (optional, MVP)
 
-| Token | Hex (claro) | Hex (oscuro) | Uso |
-|-------|-------------|--------------|-----|
-| `feedback-warning` | `#F9A825` | `#FFD54F` | GPS impreciso, datos antiguos **[si se usa]** |
-| `feedback-warning-container` | `#FFF8E1` | `#3D3500` | Fondo |
-| `feedback-warning-on-container` | `#6D4C41` | `#FFECB3` | Texto |
+| Token | Hex (light) | Hex (dark) | Use |
+|-------|---------------|------------|-----|
+| `feedback-warning` | `#F9A825` | `#FFD54F` | Imprecise GPS, stale data **[if used]** |
+| `feedback-warning-container` | `#FFF8E1` | `#3D3500` | Background |
+| `feedback-warning-on-container` | `#6D4C41` | `#FFECB3` | Text |
 
-### Sin datos / neutro (mapa)
+### No data / neutral (map)
 
-| Token | Hex (claro) | Hex (oscuro) | Uso |
-|-------|-------------|--------------|-----|
-| `feedback-unknown` | `#757575` | `#9E9E9E` | Marcador sin votos / sin datos |
-| `feedback-unknown-on-map` | `#FFFFFF` | `#121212` | Halo del pin sobre mapa |
+| Token | Hex (light) | Hex (dark) | Use |
+|-------|---------------|------------|-----|
+| `feedback-unknown` | `#757575` | `#9E9E9E` | Marker with no votes / no data |
+| `feedback-unknown-on-map` | `#FFFFFF` | `#121212` | Pin halo on map |
 
-### Trazo de pin (mapa)
+### Pin stroke (map)
 
-| Token | Valor | Uso |
+| Token | Value | Use |
 |-------|--------|-----|
-| `map-pin-stroke` | `#FFFFFF` **2–3 px** | Contorno pins en mapa claro |
-| `map-pin-stroke-dark` | `#1A1C1C` **2 px** | Contorno si el mapa es oscuro **[DECIDIR según tile]** |
+| `map-pin-stroke` | `#FFFFFF` **2–3 px** | Pin outline on light map |
+| `map-pin-stroke-dark` | `#1A1C1C` **2 px** | Outline if map/tiles are dark **[TBD by tile provider]** |
 
-> **Aplicación en el mapa:** forma, interacción y reglas de uso de estos tokens en pins están detalladas en la **§4 Especificación: marcadores de mapa**.
+> **Map application:** shape, interaction, and use of these tokens on pins are detailed in **§4 Specification: map markers**.
 
 ---
 
-## 4. Especificación: marcadores de mapa
+## 4. Specification: map markers
 
-Apartado dedicado a los **pins de aparcamientos** sobre el mapa (no al pin de “colocar nueva ubicación” del flujo Añadir — ese usa **`app-primary`**, ver §4.4).
+Dedicated to **parking pins** on the map (not the “place new location” pin in Add flow — that uses **`app-primary`**, see §4.4).
 
-### 4.1 Objetivo
+### 4.1 Goals
 
-- Leer el **estado del spot** a golpe de vista (sol, una mano, poca atención).
-- **Un solo sistema de color** para todos los mapas de la app: los rellenos salen **solo** de `feedback-*`; el teal **`app-primary`** no pinta pins de datos.
+- Read **spot state** at a glance (sunlight, one hand, low attention).
+- **One color system** for all in-app maps: fills come **only** from `feedback-*`; teal **`app-primary`** does not paint data pins.
 
-### 4.2 Estados del marcador → tokens
+### 4.2 Marker states → tokens
 
-| Estado del spot | Token de relleno | Hex (modo claro) | Hex (modo oscuro) |
-|-----------------|------------------|------------------|---------------------|
-| Consenso / percepción **segura** | `feedback-success` | `#2E7D32` | `#81C784` |
-| Consenso / percepción **no segura** | `feedback-error` | `#C62828` | `#EF5350` |
-| **Sin datos** o neutro (sin votos o regla de negocio neutra) | `feedback-unknown` | `#757575` | `#9E9E9E` |
+| Spot state | Fill token | Hex (light mode) | Hex (dark mode) |
+|------------|------------|------------------|-----------------|
+| **Safe** consensus / perception | `feedback-success` | `#2E7D32` | `#81C784` |
+| **Not safe** consensus / perception | `feedback-error` | `#C62828` | `#EF5350` |
+| **No data** or neutral (no votes or neutral business rule) | `feedback-unknown` | `#757575` | `#9E9E9E` |
 
-Los contenedores `feedback-*-container` no suelen usarse como relleno del pin; sirven para chips, leyendas o UI alrededor del mapa.
+`feedback-*-container` tokens are usually not pin fills; they suit chips, legends, or UI around the map.
 
-### 4.3 Trazo, sombra y legibilidad
+### 4.3 Stroke, shadow, legibility
 
-| Propiedad | Token / valor | Nota |
-|-----------|---------------|------|
-| Contorno exterior del pin | `map-pin-stroke` `#FFFFFF` | Grosor **3 px** en modo claro (recomendado; mínimo 2 px). Separa el pin de calles y vegetación del tile. |
-| Contorno en mapa / tiles oscuros | `map-pin-stroke-dark` `#1A1C1C` | **2 px** si el fondo del mapa es claro y el trazo blanco pierde contraste; **[DECIDIR]** según proveedor de mapas. |
-| Halo interior opcional | `feedback-unknown-on-map` | Solo si el diseño usa doble anillo; no sustituye al relleno semántico. |
-| Sombra del pin | — | Sombra suave y baja opacidad (p. ej. `rgba(26,28,28,0.2)`, offset Y 1–2 px, blur 4 px) **[DECIDIR]** para no competir con el trazo. |
+| Property | Token / value | Note |
+|----------|---------------|------|
+| Outer pin outline | `map-pin-stroke` `#FFFFFF` | **3 px** in light mode (recommended; minimum 2 px). Separates pin from streets and map vegetation. |
+| Outline on dark map / tiles | `map-pin-stroke-dark` `#1A1C1C` | **2 px** if the map background is light and white stroke loses contrast; **[TBD]** per map provider. |
+| Optional inner halo | `feedback-unknown-on-map` | Only if the design uses a double ring; does not replace semantic fill. |
+| Pin shadow | — | Soft, low opacity (e.g. `rgba(26,28,28,0.2)`, Y offset 1–2 px, blur 4 px) **[TBD]** so it does not compete with stroke. |
 
-### 4.4 Pin de colocación (Añadir aparcamiento) vs pin de spot
+### 4.4 Placement pin (Add parking) vs spot pin
 
-| Tipo | Color | Token |
+| Type | Color | Token |
 |------|--------|--------|
-| **Spot existente** (datos en el mapa) | Verde / rojo / gris según §4.2 | `feedback-success` / `feedback-error` / `feedback-unknown` |
-| **Nueva ubicación** (usuario arrastra antes de guardar) | Teal de marca | `app-primary` `#00665C` + trazo `map-pin-stroke` |
+| **Existing spot** (data on map) | Green / red / gray per §4.2 | `feedback-success` / `feedback-error` / `feedback-unknown` |
+| **New location** (user drags before save) | Brand teal | `app-primary` `#00665C` + stroke `map-pin-stroke` |
 
-Así se distingue “estoy creando” (app) de “esto es lo que piensa la comunidad” (feedback).
+This separates “I am creating” (app) from “what the community thinks” (feedback).
 
-### 4.5 Ubicación del usuario
+### 4.5 User location
 
-- Punto de **mi posición**: azul estándar del SDK de mapas **o** anillo en `app-primary` — **nunca** `feedback-success` / `feedback-error` (no confundir usuario con un spot).
+- **My position** dot: map SDK default blue **or** ring in `app-primary` — **never** `feedback-success` / `feedback-error` (do not confuse the user with a spot).
 
-### 4.6 Tamaño y accesibilidad
+### 4.6 Size and accessibility
 
-| Criterio | Valor orientativo |
-|----------|-------------------|
-| Área táctil mínima | ≥ **44 × 44 pt** (iOS HIG / Material), aunque el dibujo del pin sea más pequeño. |
-| Tamaño visual del pin | **~24–32 pt** de ancho en base; escala con zoom del mapa **[DECIDIR]**. |
-| Contraste | El relleno + trazo blanco debe distinguirse en exterior; no usar verdes/rojos pastel en el cuerpo del pin. |
+| Criterion | Guideline |
+|-----------|-----------|
+| Minimum touch target | ≥ **44 × 44 pt** (iOS HIG / Material), even if the pin graphic is smaller. |
+| Visual pin size | **~24–32 pt** wide at baseline; scale with map zoom **[TBD]**. |
+| Contrast | Fill + white stroke must read outdoors; avoid pastel greens/reds on the pin body. |
 
-### 4.7 Estados de interacción
+### 4.7 Interaction states
 
-| Interacción | Comportamiento sugerido |
-|-------------|-------------------------|
-| **Normal** | Colores §4.2 + trazo §4.3 |
-| **Pulsado / seleccionado** | Ligera escala **1,05–1,1×** o anillo `app-primary` **2 px** alrededor del pin **[DECIDIR]** sin cambiar el relleno semántico. |
-| **Cluster** | Badge con número sobre círculo que use `app-surface` + `app-text-primary` o `app-primary` **[DECIDIR]**; al expandir, pins siguen §4.2. |
+| Interaction | Suggested behavior |
+|-------------|---------------------|
+| **Default** | Colors §4.2 + stroke §4.3 |
+| **Pressed / selected** | Slight scale **1.05–1.1×** or **2 px** `app-primary` ring **[TBD]** without changing semantic fill. |
+| **Cluster** | Badge with number on circle using `app-surface` + `app-text-primary` or `app-primary` **[TBD]**; when expanded, pins follow §4.2. |
 
-### 4.8 Qué no hacer
+### 4.8 Do not
 
-- No usar `#00665C` como relleno de un spot “seguro”.
-- No usar verde/rojo del tema M3 **Secondary/Tertiary** para pins (solo `feedback-*`).
-- No mezclar dos significados en un solo pin (un color = un estado lógico).
+- Do not use `#00665C` as fill for a “safe” spot.
+- Do not use M3 **Secondary/Tertiary** green/red for pins (only `feedback-*`).
+- Do not mix two meanings in one pin (one color = one logical state).
 
-### 4.9 Fragmento `theme.map` (referencia)
+### 4.9 `theme.map` snippet (reference)
 
 ```ts
 mapMarkers: {
@@ -201,43 +201,43 @@ mapMarkers: {
   unknown: '#757575',
   pinStroke: '#FFFFFF',
   pinStrokeWidth: 3,
-  placementPinFill: '#00665C', // app-primary — solo flujo Añadir
+  placementPinFill: '#00665C', // app-primary — Add flow only
 },
 ```
 
 ---
 
-## 5. Mapeo rápido componente → token
+## 5. Quick component → token map
 
-| Componente | Token principal |
-|------------|-----------------|
-| FAB “+” añadir (estándar) | `app-primary` / `app-on-primary`; diámetro **~56 pt** |
-| FAB “+” (Home sin resultados en zona) | Mismos colores; diámetro **~72–80 pt** — ver [feature-behavior.md](./feature-behavior.md) F1 |
-| Botón Guardar | `app-primary` |
-| Botón Cancelar / secundario UI | `app-surface-highest` + `app-text-primary` o `app-neutral-secondary` |
-| Marcador sin datos | `feedback-unknown` + `map-pin-stroke` |
-| Marcador seguro | `feedback-success` + `map-pin-stroke` |
-| Marcador no seguro | `feedback-error` + `map-pin-stroke` |
-| Voto 👍 / 👎 | `feedback-success*` / `feedback-error*` |
-| Toasts semánticos | `feedback-*-container` + `feedback-*-on-container` |
+| Component | Primary token |
+|-----------|----------------|
+| Standard “+” add FAB | `app-primary` / `app-on-primary`; diameter **~56 pt** |
+| “+” FAB (Home with no results in area) | Same colors; diameter **~72–80 pt** — see [feature-behavior.md](./feature-behavior.md) F1 |
+| Save button | `app-primary` |
+| Cancel / secondary UI | `app-surface-highest` + `app-text-primary` or `app-neutral-secondary` |
+| No-data marker | `feedback-unknown` + `map-pin-stroke` |
+| Safe marker | `feedback-success` + `map-pin-stroke` |
+| Not-safe marker | `feedback-error` + `map-pin-stroke` |
+| 👍 / 👎 votes | `feedback-success*` / `feedback-error*` |
+| Semantic toasts | `feedback-*-container` + `feedback-*-on-container` |
 | Skeleton | `app-surface-muted` → `app-surface` |
-| Marcadores mapa (detalle) | §4 completa |
+| Map markers (detail) | Full §4 |
 
 ---
 
-## 6. Stitch: qué configurar en CiclePark Transit
+## 6. Stitch: what to set in CiclePark Transit
 
-| Campo tema | Valor |
-|------------|--------|
-| Primary / marca | `#00665C` (claro) · teal oscuro según §2 dark |
-| Surfaces / background / on-surface | Tokens **`app-*`** de la §2 |
-| Secondary | **Neutro** §2 (p. ej. `#546E7A` / `#ECEFF1`), **nunca** verde |
-| Tertiary | **Neutro** §2 (p. ej. `#78909C`), **nunca** rojo |
-| Success / error en mapa y votos | No van al tema Transit: usar **`feedback-*`** y **§4** en componentes / lámina **CiclePark Color Tokens** |
+| Theme field | Value |
+|-------------|--------|
+| Primary / brand | `#00665C` (light) · dark teal per §2 dark |
+| Surfaces / background / on-surface | **`app-*`** tokens from §2 |
+| Secondary | **Neutral** §2 (e.g. `#546E7A` / `#ECEFF1`), **never** green |
+| Tertiary | **Neutral** §2 (e.g. `#78909C`), **never** red |
+| Success / error on map and votes | Not in Transit theme: use **`feedback-*`** and **§4** in components / **CiclePark Color Tokens** sheet |
 
 ---
 
-## 7. Implementación sugerida (React Native)
+## 7. Suggested implementation (React Native)
 
 ```ts
 export const lightTheme = {
@@ -246,7 +246,7 @@ export const lightTheme = {
     surface: '#FFFFFF',
     primary: '#00665C',
     onPrimary: '#FFFFFF',
-    // …resto app-*
+    // …remaining app-*
     neutralSecondary: '#546E7A',
     neutralTertiary: '#78909C',
   },
@@ -270,32 +270,33 @@ export const lightTheme = {
 };
 ```
 
-Componentes de mapa (pins): **`theme.map`** + **`theme.feedback`** según **§4**. Chrome del mapa (barras, FAB): **`theme.app`**.
+Map components (pins): **`theme.map`** + **`theme.feedback`** per **§4**. Map chrome (bars, FAB): **`theme.app`**.
 
 ---
 
-## 8. Referencia en Google Stitch
+## 8. Reference in Google Stitch
 
-| Entregable | Descripción |
-|------------|-------------|
-| **CiclePark Color Tokens - Map Marker Spec Expansion** | Especificación **escrita** §4 en canvas: estados, trazo, pin de colocación vs feedback, usuario, 44pt, prohibiciones. |
-| **CiclePark Color Tokens - Map Markers Expansion** | Pins grandes con hex (complemento visual de la §4). |
-| **CiclePark Color Tokens Specification v2** | App + Feedback (contexto previo). |
-| **CiclePark Home Map - Official Colors** | Mapa rediseñado: marcadores **solo** con esos hex; leyenda opcional; FAB `app-primary` **#00665C**. |
-| **CiclePark Add Parking - Official Colors** | Pin central de ubicación = **#00665C** (no es feedback); resto `app-*`. |
-| **Home Map — Empty State** | Sin pins; **FAB ampliado** (~72–80 pt); copy vacío cercano. |
-| **CiclePark: Buscar en esta zona** | Pastilla superior **“Buscar en esta zona”**; FAB tamaño estándar; pins con tokens `feedback-*`. |
+| Deliverable | Description |
+|-------------|-------------|
+| **CiclePark Color Tokens - Map Marker Spec Expansion** | Written spec §4 on canvas: states, stroke, placement vs feedback pin, user, 44pt, prohibitions. |
+| **CiclePark Color Tokens - Map Markers Expansion** | Large pins with hex (visual complement to §4). |
+| **CiclePark Color Tokens Specification v2** | App + Feedback (prior context). |
+| **CiclePark Home Map - Official Colors** | Redesigned map: markers **only** with these hex; optional legend; FAB `app-primary` **#00665C**. |
+| **CiclePark Add Parking - Official Colors** | Central location pin = **#00665C** (not feedback); rest `app-*`. |
+| **Home Map — Empty State** | No pins; **enlarged FAB** (~72–80 pt); nearby empty copy. |
+| **CiclePark: Buscar en esta zona** | Top pill **“Search this area”**; standard-size FAB; pins with `feedback-*` tokens. |
 
-ID de proyecto: `3973785432635225853`.
+Project ID: `3973785432635225853`.
 
 ---
 
-### Historial de este archivo
+### Change history (this file)
 
-| Fecha | Cambio |
-|-------|--------|
-| 2026-03-23 | Primera versión (App + Feedback, referencia Stitch). |
-| 2026-03-23 | Eliminado Kinetic Mono; Transit = solo colores app; secondary/tertiary neutros; verde/rojo solo en `feedback-*`. |
-| 2026-03-23 | Stitch: láminas “Official Colors” + expansión map markers alineadas a §3. |
-| 2026-03-23 | Nueva **§4 Especificación: marcadores de mapa**; renumeración §5–§8. |
-| 2026-03-23 | §5: FAB estándar vs ampliado (Home vacía); §8: pantallas Stitch Home estados. |
+| Date | Change |
+|------|--------|
+| 2026-03-23 | First version (App + Feedback, Stitch reference). |
+| 2026-03-23 | Removed Kinetic Mono; Transit = app colors only; secondary/tertiary neutral; green/red only in `feedback-*`. |
+| 2026-03-23 | Stitch: “Official Colors” sheets + map marker expansion aligned to §3. |
+| 2026-03-23 | New **§4 Specification: map markers**; renumber §5–§8. |
+| 2026-03-23 | §5: standard vs enlarged FAB (empty Home); §8: Stitch Home states. |
+| 2026-03-24 | Translated to English. |
