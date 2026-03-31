@@ -1,11 +1,35 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import type { LucideIcon } from "lucide-react-native";
+import { Heart, Map, Settings } from "lucide-react-native";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Dimensions, Pressable, Text, View } from "react-native";
+import Animated, {
+  Easing,
+  interpolate,
+  ReduceMotion,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { StyleSheet, useUnistyles } from "react-native-unistyles";
 import { FloatingTabPill } from "./FloatingTabPill";
 import type { RootTabParamList } from "./types";
+
+const TAB_ICON_SIZE = 20;
+const LABEL_REVEAL_MS = 260;
+const LABEL_REVEAL_EASING = Easing.out(Easing.cubic);
+/** `theme.layout.space2` — evita capturar theme en worklets. */
+const LABEL_ICON_GAP = 8;
+/** Ancho máximo reservado al texto del tab activo (una línea). */
+const LABEL_MAX_W = 200;
+
+const tabIcon: Record<keyof RootTabParamList, LucideIcon> = {
+  Map: Map,
+  List: Heart,
+  Settings: Settings,
+};
 
 /** Altura aproximada (barra + márgenes) para padding en pantallas con contenido scrollable. */
 export const FLOATING_TAB_BAR_OFFSET = 88;
@@ -15,10 +39,10 @@ const TAB_BAR_MAX_WIDTH = 420;
 
 const tabLabelKey: Record<
   keyof RootTabParamList,
-  "tabs.map" | "tabs.list" | "tabs.settings"
+  "tabs.map" | "tabs.favorites" | "tabs.settings"
 > = {
   Map: "tabs.map",
-  List: "tabs.list",
+  List: "tabs.favorites",
   Settings: "tabs.settings",
 };
 
@@ -36,13 +60,13 @@ const styles = StyleSheet.create((theme) => ({
     maxWidth: TAB_BAR_MAX_WIDTH,
     borderRadius: theme.layout.radiusLg,
     backgroundColor: theme.app.surface,
-    paddingVertical: theme.layout.space2,
+    paddingVertical: theme.layout.space1,
     paddingHorizontal: theme.layout.space1,
     shadowColor: theme.app.textPrimary,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.12,
-    shadowRadius: 16,
-    elevation: 12,
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.07,
+    shadowRadius: 10,
+    elevation: 6,
   },
   row: {
     flexDirection: "row",
@@ -52,21 +76,86 @@ const styles = StyleSheet.create((theme) => ({
   },
   tab: {
     flex: 1,
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: theme.layout.space2,
+    paddingVertical: theme.layout.space1,
     zIndex: 1,
+  },
+  labelClip: {
+    overflow: "hidden",
   },
   label: {
     ...theme.typography.label,
-  },
-  labelFocused: {
     color: theme.app.primary,
   },
-  labelIdle: {
-    color: theme.app.textSecondary,
-  },
 }));
+
+type TabBarItemProps = {
+  focused: boolean;
+  label: string;
+  Icon: LucideIcon;
+  primaryColor: string;
+  secondaryColor: string;
+  onPress: () => void;
+  onLongPress: () => void;
+  accessibilityLabel?: string;
+  testID?: string;
+};
+
+function FloatingTabBarItem({
+  focused,
+  label,
+  Icon,
+  primaryColor,
+  secondaryColor,
+  onPress,
+  onLongPress,
+  accessibilityLabel,
+  testID,
+}: TabBarItemProps) {
+  const progress = useSharedValue(focused ? 1 : 0);
+
+  useEffect(() => {
+    progress.value = withTiming(focused ? 1 : 0, {
+      duration: LABEL_REVEAL_MS,
+      easing: LABEL_REVEAL_EASING,
+      reduceMotion: ReduceMotion.System,
+    });
+  }, [focused, progress]);
+
+  const labelAnimStyle = useAnimatedStyle(() => ({
+    opacity: progress.value,
+    maxWidth: interpolate(progress.value, [0, 1], [0, LABEL_MAX_W]),
+    marginLeft: interpolate(progress.value, [0, 1], [0, LABEL_ICON_GAP]),
+    transform: [
+      { translateX: interpolate(progress.value, [0, 1], [-6, 0]) },
+    ],
+  }));
+
+  return (
+    <Pressable
+      accessibilityRole="button"
+      accessibilityState={focused ? { selected: true } : {}}
+      accessibilityLabel={accessibilityLabel}
+      testID={testID}
+      onPress={onPress}
+      onLongPress={onLongPress}
+      style={styles.tab}
+    >
+      <Icon
+        size={TAB_ICON_SIZE}
+        color={focused ? primaryColor : secondaryColor}
+        strokeWidth={focused ? 2.25 : 2}
+      />
+      <Animated.View style={[styles.labelClip, labelAnimStyle]}>
+        <Text numberOfLines={1} style={styles.label}>
+          {label}
+        </Text>
+      </Animated.View>
+    </Pressable>
+  );
+}
 
 export function FloatingTabBar({
   state,
@@ -76,8 +165,6 @@ export function FloatingTabBar({
   const routes = state?.routes ?? [];
   const currentIndex = state?.index ?? 0;
   const tabCount = routes.length;
-
-  console.log("render floating tab bar");
 
   const [windowSize, setWindowSize] = useState(() => Dimensions.get("window"));
   useEffect(() => {
@@ -145,26 +232,23 @@ export function FloatingTabBar({
               });
             };
 
+            const Icon = tabIcon[routeName];
+
             return (
-              <Pressable
+              <FloatingTabBarItem
                 key={route.key}
-                accessibilityRole="button"
-                accessibilityState={isFocused ? { selected: true } : {}}
-                accessibilityLabel={options.tabBarAccessibilityLabel}
-                testID={options.tabBarButtonTestID}
+                focused={isFocused}
+                label={label}
+                Icon={Icon}
+                primaryColor={theme.app.primary}
+                secondaryColor={theme.app.textSecondary}
                 onPress={onPress}
                 onLongPress={onLongPress}
-                style={styles.tab}
-              >
-                <Text
-                  style={[
-                    styles.label,
-                    isFocused ? styles.labelFocused : styles.labelIdle,
-                  ]}
-                >
-                  {label}
-                </Text>
-              </Pressable>
+                accessibilityLabel={
+                  options.tabBarAccessibilityLabel ?? label
+                }
+                testID={options.tabBarButtonTestID}
+              />
             );
           })}
         </View>

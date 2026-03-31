@@ -11,7 +11,7 @@ const styles = StyleSheet.create((theme) => ({
     paddingHorizontal: theme.layout.space4,
   },
   title: {
-    ...theme.typography.titleLarge,
+    ...theme.typography.screenLargeTitle,
     color: theme.app.textPrimary,
     marginBottom: theme.layout.space2,
   },
@@ -25,8 +25,10 @@ export function ListScreen() {
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   return (
-    <View style={[styles.root, { paddingTop: insets.top + 12, paddingBottom: FLOATING_TAB_BAR_OFFSET }]}>
-      <Text style={styles.title}>{t('screens.list.title')}</Text>
+    <View style={[styles.root, { paddingTop: insets.top + 8, paddingBottom: FLOATING_TAB_BAR_OFFSET }]}>
+      <Text style={styles.title} accessibilityRole="header">
+        {t('screens.list.title')}
+      </Text>
       <Text style={styles.caption}>{t('screens.list.caption')}</Text>
     </View>
   );

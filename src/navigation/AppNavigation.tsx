@@ -7,7 +7,6 @@ import { RootStack } from "./RootStack";
 export function AppNavigation() {
   const { theme } = useUnistyles();
   const isDark = UnistylesRuntime.themeName === "dark";
-  console.log("isDark", isDark);
   return (
     <NavigationContainer>
       <RootStack />
