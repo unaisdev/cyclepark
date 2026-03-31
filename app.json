@@ -1,16 +1,11 @@
 {
   "expo": {
-    "name": "ciclepark",
+    "name": "CyclePark",
     "slug": "ciclepark",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/splash-icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "ios": {
       "supportsTablet": true,
       "config": {
@@ -24,6 +19,7 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
+      "permissions": ["com.android.vending.BILLING"],
       "predictiveBackGestureEnabled": false,
       "package": "com.anonymous.ciclepark",
       "config": {
@@ -37,8 +33,19 @@
     },
     "plugins": [
       "expo-dev-client",
-      "react-native-edge-to-edge",
+      "react-native-edge-to-edge/app.plugin.js",
+      "react-native-iap/plugin",
       "expo-localization",
+      "expo-notifications",
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/icon.png",
+          "imageWidth": 200,
+          "resizeMode": "contain"
+        }
+      ],
       [
         "expo-location",
         {
