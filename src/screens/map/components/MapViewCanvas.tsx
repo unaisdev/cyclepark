@@ -1,7 +1,14 @@
+import type { ReactNode } from 'react';
 import { forwardRef, memo } from 'react';
 import { Platform, StyleSheet, Text, View } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, type MapViewProps } from 'react-native-maps';
+import MapView, {
+  PROVIDER_GOOGLE,
+  type MapType,
+  type MapViewProps,
+  type Region,
+} from 'react-native-maps';
 import { DEFAULT_MAP_REGION } from '../constants/defaultMapRegion';
+import { CICLEPARK_GOOGLE_MAP_STYLE } from '../mapStyles/cicleParkGoogleMapStyle';
 
 const styles = StyleSheet.create({
   /** `flex: 1` evita mapas en blanco en Android (Fabric) frente a solo `absoluteFill` sin contenedor medido. */
@@ -30,6 +37,8 @@ const styles = StyleSheet.create({
 export type MapViewCanvasProps = {
   /** Hueco para UI superpuesta (barra de búsqueda, tabs). */
   mapPadding?: MapViewProps['mapPadding'];
+  /** Google Maps: `standard`, `satellite`, `hybrid`, `terrain`. */
+  mapType?: MapType;
   isDark?: boolean;
   /** Punto azul de “mi ubicación” en el mapa (tras conceder permiso). */
   showsUserLocation?: boolean;
@@ -38,14 +47,30 @@ export type MapViewCanvasProps = {
    * las etiquetas de Google Maps sigan el idioma del dispositivo.
    */
   systemLocaleKey?: string;
+  /** Marcadores u otras capas hijas del `MapView`. */
+  children?: ReactNode;
+  onRegionChangeComplete?: (
+    region: Region,
+    details: { isGesture?: boolean },
+  ) => void;
+  onMapReady?: MapViewProps['onMapReady'];
 };
 
 /**
  * Mapa nativo vía [react-native-maps](https://docs.expo.dev/versions/latest/sdk/map-view/).
- * Google Maps (Android + iOS); claves en app.json (`android.config.googleMaps` / `ios.config.googleMapsApiKey`).
+ * Google Maps: Android manifest (`google_maps_api_key` vía Gradle + `.env.local`); iOS / prebuild: `app.json`.
  */
 const MapViewCanvasInner = forwardRef<MapView, MapViewCanvasProps>(function MapViewCanvasInner(
-  { mapPadding, isDark, showsUserLocation = false, systemLocaleKey = 'system' },
+  {
+    mapPadding,
+    mapType = 'standard',
+    isDark,
+    showsUserLocation = false,
+    systemLocaleKey = 'system',
+    children,
+    onRegionChangeComplete,
+    onMapReady,
+  },
   ref,
 ) {
   if (Platform.OS === 'web') {
@@ -69,6 +94,8 @@ const MapViewCanvasInner = forwardRef<MapView, MapViewCanvasProps>(function MapV
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={DEFAULT_MAP_REGION}
+        mapType={mapType}
+        customMapStyle={CICLEPARK_GOOGLE_MAP_STYLE}
         mapPadding={mapPadding}
         rotateEnabled
         pitchEnabled={false}
@@ -79,8 +106,13 @@ const MapViewCanvasInner = forwardRef<MapView, MapViewCanvasProps>(function MapV
         showsMyLocationButton={false}
         showsUserLocation={showsUserLocation}
         toolbarEnabled={false}
+        poiClickEnabled={false}
         userInterfaceStyle={Platform.OS === 'ios' ? (isDark ? 'dark' : 'light') : undefined}
-      />
+        onRegionChangeComplete={onRegionChangeComplete}
+        onMapReady={onMapReady}
+      >
+        {children}
+      </MapView>
     </View>
   );
 });

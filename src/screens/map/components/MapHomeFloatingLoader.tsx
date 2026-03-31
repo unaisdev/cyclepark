@@ -26,8 +26,8 @@ const styles = StyleSheet.create((theme) => ({
 
 export type MapHomeFloatingLoaderProps = {
   visible: boolean;
-  /** Qué mensaje mostrar si hay varias acciones; `locating` tiene prioridad sobre geocodificación. */
-  mode: "geocoding" | "locating";
+  /** Qué mensaje mostrar si hay varias acciones; `locating` > `geocoding` > `loadingParkings`. */
+  mode: "geocoding" | "locating" | "loadingParkings";
 };
 
 export function MapHomeFloatingLoader({ visible, mode }: MapHomeFloatingLoaderProps) {
@@ -41,7 +41,9 @@ export function MapHomeFloatingLoader({ visible, mode }: MapHomeFloatingLoaderPr
   const label =
     mode === "locating"
       ? t("screens.map.mapActivityLocating")
-      : t("screens.map.mapActivityGeocoding");
+      : mode === "geocoding"
+        ? t("screens.map.mapActivityGeocoding")
+        : t("screens.map.mapActivityLoadingParkings");
 
   return (
     <View
