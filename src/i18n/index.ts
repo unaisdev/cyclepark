@@ -4,14 +4,16 @@ import { initReactI18next } from 'react-i18next';
 import { ca } from './locales/ca';
 import { en } from './locales/en';
 import { es } from './locales/es';
+import { eu } from './locales/eu';
 
-export const APP_LOCALES = ['es', 'en', 'ca'] as const;
+export const APP_LOCALES = ['es', 'en', 'ca', 'eu'] as const;
 export type AppLocale = (typeof APP_LOCALES)[number];
 
-/** Idioma de la app (es/en/ca) a partir del locale del sistema. */
+/** Idioma de la app (es/en/ca/eu) a partir del locale del sistema. */
 export function resolveDeviceLocale(locales?: readonly Pick<Locale, 'languageCode'>[]): AppLocale {
   const code = (locales ?? getLocales())[0]?.languageCode?.toLowerCase() ?? '';
   if (code === 'ca' || code.startsWith('ca')) return 'ca';
+  if (code === 'eu' || code.startsWith('eu')) return 'eu';
   if (code === 'en' || code.startsWith('en')) return 'en';
   return 'es';
 }
@@ -22,6 +24,7 @@ void i18n.use(initReactI18next).init({
     es: { translation: es },
     en: { translation: en },
     ca: { translation: ca },
+    eu: { translation: eu },
   },
   lng: resolveDeviceLocale(),
   fallbackLng: 'es',
