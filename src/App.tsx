@@ -1,10 +1,13 @@
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StyleSheet } from 'react-native-unistyles';
+import { queryClient } from './api/queryClient';
 import { DeviceLocaleSync } from './i18n/DeviceLocaleSync';
 import { AppNavigation } from './navigation/AppNavigation';
-import { UserPreferencesProvider } from './preferences/UserPreferencesContext';
+import { BillingBootstrap } from './stores/BillingBootstrap';
+import { SettingsBootstrap } from './stores/SettingsBootstrap';
 
 const styles = StyleSheet.create((theme) => ({
   root: {
@@ -16,14 +19,16 @@ const styles = StyleSheet.create((theme) => ({
 export default function App() {
   return (
     <GestureHandlerRootView style={styles.root}>
-      <UserPreferencesProvider>
-        <DeviceLocaleSync />
+      <SettingsBootstrap />
+      <BillingBootstrap />
+      <DeviceLocaleSync />
+      <QueryClientProvider client={queryClient}>
         <BottomSheetModalProvider>
           <SafeAreaProvider>
             <AppNavigation />
           </SafeAreaProvider>
         </BottomSheetModalProvider>
-      </UserPreferencesProvider>
+      </QueryClientProvider>
     </GestureHandlerRootView>
   );
 }
