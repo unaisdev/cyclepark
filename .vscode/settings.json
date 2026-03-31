@@ -1,6 +1,9 @@
 {
   "prettier.enableDebugLogs": false,
+  "prettier.requireConfig": true,
+  "eslint.enable": false,
   "editor.formatOnSave": true,
+  "editor.formatOnSaveMode": "file",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -22,6 +25,7 @@
     "source.fixAll.eslint": "never",
     "source.fixAll.stylelint": "never",
     "source.organizeImports": "never",
-    "source.removeUnusedImports": "never"
+    "source.removeUnusedImports": "never",
+    "source.sortMembers": "never"
   }
 }
