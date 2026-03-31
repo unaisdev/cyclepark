@@ -1,13 +1,18 @@
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import { ChevronRight } from 'lucide-react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { ChevronRight, HeartHandshake, Languages, Palette, type LucideIcon } from 'lucide-react-native';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
 import { FLOATING_TAB_BAR_OFFSET } from '../../navigation/FloatingTabBar';
-import { useUserPreferences } from '../../preferences/UserPreferencesContext';
-import type { AppearancePreference, LocalePreference } from '../../preferences/preferenceStorage';
+import { mapHomeChrome } from '../map/mapHomeTheme';
+import type { RootStackParamList } from '../../navigation/types';
+import { useBillingStore } from '../../stores/billingStore';
+import type { AppearancePreference, LocalePreference } from '../../stores/settingsStore';
+import { useSettingsStore } from '../../stores/settingsStore';
 import { SettingsOptionPickerSheet, type SettingsPickerOption } from './SettingsOptionPickerSheet';
 
 const styles = StyleSheet.create((theme) => ({
@@ -20,9 +25,7 @@ const styles = StyleSheet.create((theme) => ({
     paddingBottom: FLOATING_TAB_BAR_OFFSET + theme.layout.space4,
   },
   largeTitle: {
-    fontSize: 34,
-    fontWeight: '700',
-    letterSpacing: 0.35,
+    ...theme.typography.screenLargeTitle,
     color: theme.app.textPrimary,
     marginBottom: theme.layout.space4,
   },
@@ -41,9 +44,10 @@ const styles = StyleSheet.create((theme) => ({
     marginTop: theme.layout.space2,
   },
   group: {
-    borderRadius: 10,
+    borderRadius: theme.layout.radiusLg,
     overflow: 'hidden',
     backgroundColor: theme.app.surface,
+    ...mapHomeChrome.ambientShadow,
   },
   row: {
     minHeight: 48,
@@ -52,30 +56,58 @@ const styles = StyleSheet.create((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    gap: theme.layout.space3,
   },
   rowPressed: {
     opacity: 0.55,
   },
+  rowLeft: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: theme.layout.space3,
+    minWidth: 0,
+  },
+  rowIconWrap: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   rowLabel: {
     ...theme.typography.body,
     color: theme.app.textPrimary,
-    flex: 1,
+    flexShrink: 1,
   },
   rowValue: {
     ...theme.typography.body,
     color: theme.app.textSecondary,
-    maxWidth: '52%',
     textAlign: 'right',
   },
   rowRight: {
+    flex: 1.35,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'flex-end',
     gap: 6,
-    maxWidth: '58%',
+    minWidth: 0,
+  },
+  rowValueWrap: {
+    flex: 1,
+    minWidth: 0,
+    alignItems: 'flex-end',
   },
 }));
 
-function SettingsRow({ label, valueLabel, onPress }: { label: string; valueLabel: string; onPress: () => void }) {
+function SettingsRow({
+  label,
+  valueLabel,
+  onPress,
+  Icon,
+}: {
+  label: string;
+  valueLabel: string;
+  onPress: () => void;
+  Icon: LucideIcon;
+}) {
   const { theme } = useUnistyles();
   return (
     <View>
@@ -86,11 +118,16 @@ function SettingsRow({ label, valueLabel, onPress }: { label: string; valueLabel
         accessibilityLabel={label}
         accessibilityHint={valueLabel}
       >
-        <Text style={styles.rowLabel}>{label}</Text>
+        <View style={styles.rowLeft}>
+          <View style={styles.rowIconWrap} accessible={false} importantForAccessibility="no-hide-descendants">
+            <Icon size={22} color={theme.app.textSecondary} strokeWidth={2} />
+          </View>
+          <Text style={styles.rowLabel}>{label}</Text>
+        </View>
         <View style={styles.rowRight}>
-          <Text style={styles.rowValue} numberOfLines={1}>
-            {valueLabel}
-          </Text>
+          <View style={styles.rowValueWrap}>
+            <Text style={styles.rowValue}>{valueLabel}</Text>
+          </View>
           <ChevronRight size={20} color={theme.app.textMuted} strokeWidth={2} />
         </View>
       </Pressable>
@@ -98,10 +135,18 @@ function SettingsRow({ label, valueLabel, onPress }: { label: string; valueLabel
   );
 }
 
+type SettingsNav = NativeStackNavigationProp<RootStackParamList, 'Main'>;
+
 export function SettingsScreen() {
   const { t } = useTranslation();
+  const navigation = useNavigation<SettingsNav>();
   const insets = useSafeAreaInsets();
-  const { appearance, localeMode, setAppearance, setLocaleMode } = useUserPreferences();
+  useUnistyles();
+  const appearance = useSettingsStore((s) => s.appearance);
+  const localeMode = useSettingsStore((s) => s.localeMode);
+  const setAppearance = useSettingsStore((s) => s.setAppearance);
+  const setLocaleMode = useSettingsStore((s) => s.setLocaleMode);
+  const isPremium = useBillingStore((s) => s.isPremium);
   const pickerRef = useRef<BottomSheetModalMethods>(null);
   const [pickerKind, setPickerKind] = useState<'appearance' | 'locale'>('appearance');
 
@@ -120,18 +165,19 @@ export function SettingsScreen() {
       { value: 'es', label: t('screens.settings.language.es') },
       { value: 'en', label: t('screens.settings.language.en') },
       { value: 'ca', label: t('screens.settings.language.ca') },
+      { value: 'eu', label: t('screens.settings.language.eu') },
     ],
     [t],
   );
 
   const openAppearancePicker = useCallback(() => {
     setPickerKind('appearance');
-    requestAnimationFrame(() => pickerRef.current?.present());
+    queueMicrotask(() => pickerRef.current?.present());
   }, []);
 
   const openLocalePicker = useCallback(() => {
     setPickerKind('locale');
-    requestAnimationFrame(() => pickerRef.current?.present());
+    queueMicrotask(() => pickerRef.current?.present());
   }, []);
 
   const appearanceLabels: Record<AppearancePreference, string> = {
@@ -146,6 +192,7 @@ export function SettingsScreen() {
     es: t('screens.settings.language.es'),
     en: t('screens.settings.language.en'),
     ca: t('screens.settings.language.ca'),
+    eu: t('screens.settings.language.eu'),
   };
   const localeLabel = localeLabels[localeMode];
 
@@ -167,6 +214,9 @@ export function SettingsScreen() {
 
   const sheetOptions = pickerKind === 'appearance' ? appearanceOptions : localeOptions;
   const sheetSelected = pickerKind === 'appearance' ? appearance : localeMode;
+  const premiumStatusLabel = isPremium
+    ? t('screens.settings.premium.statusActive')
+    : t('screens.settings.premium.statusInactive');
 
   return (
     <View style={styles.root}>
@@ -184,6 +234,7 @@ export function SettingsScreen() {
         </Text>
         <View style={styles.group}>
           <SettingsRow
+            Icon={Palette}
             label={t('screens.settings.appearance.rowTitle')}
             valueLabel={appearanceLabel}
             onPress={openAppearancePicker}
@@ -193,15 +244,27 @@ export function SettingsScreen() {
         <Text style={styles.sectionHeader}>{t('screens.settings.sectionLanguage')}</Text>
         <View style={styles.group}>
           <SettingsRow
+            Icon={Languages}
             label={t('screens.settings.language.rowTitle')}
             valueLabel={localeLabel}
             onPress={openLocalePicker}
+          />
+        </View>
+
+        <Text style={styles.sectionHeader}>{t('screens.settings.sectionSupport')}</Text>
+        <View style={styles.group}>
+          <SettingsRow
+            Icon={HeartHandshake}
+            label={t('screens.settings.premium.rowTitle')}
+            valueLabel={premiumStatusLabel}
+            onPress={() => navigation.navigate('Paywall')}
           />
         </View>
       </ScrollView>
 
       <SettingsOptionPickerSheet
         ref={pickerRef}
+        sheetInstanceKey={pickerKind}
         title={sheetTitle}
         options={sheetOptions}
         selectedValue={sheetSelected}

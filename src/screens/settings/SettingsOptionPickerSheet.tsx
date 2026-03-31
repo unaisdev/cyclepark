@@ -52,7 +52,12 @@ type SettingsOptionPickerSheetProps = {
   onSelectValue: (value: string) => void;
 };
 
-function PickerBody({ title, options, selectedValue, onSelectValue }: SettingsOptionPickerSheetProps) {
+function PickerBody({
+  title,
+  options,
+  selectedValue,
+  onSelectValue,
+}: SettingsOptionPickerSheetProps) {
   const { theme } = useUnistyles();
   const { close } = useBottomSheet();
 
@@ -65,7 +70,10 @@ function PickerBody({ title, options, selectedValue, onSelectValue }: SettingsOp
   );
 
   return (
-    <BottomSheetScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
+    <BottomSheetScrollView
+      contentContainerStyle={styles.content}
+      keyboardShouldPersistTaps="handled"
+    >
       <Text style={styles.title}>{title}</Text>
       <View>
         {options.map((opt) => {
@@ -91,28 +99,29 @@ function PickerBody({ title, options, selectedValue, onSelectValue }: SettingsOp
   );
 }
 
-export const SettingsOptionPickerSheet = forwardRef<BottomSheetModalMethods, SettingsOptionPickerSheetProps>(
-  function SettingsOptionPickerSheet(props, ref) {
-    const { theme } = useUnistyles();
+export const SettingsOptionPickerSheet = forwardRef<
+  BottomSheetModalMethods,
+  SettingsOptionPickerSheetProps
+>(function SettingsOptionPickerSheet(props, ref) {
+  const { theme } = useUnistyles();
 
-    const renderBackdrop = useCallback(
-      (p: BottomSheetBackdropProps) => (
-        <BottomSheetBackdrop {...p} disappearsOnIndex={-1} appearsOnIndex={0} opacity={0.45} />
-      ),
-      [],
-    );
+  const renderBackdrop = useCallback(
+    (p: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop {...p} disappearsOnIndex={-1} appearsOnIndex={0} opacity={0.45} />
+    ),
+    [],
+  );
 
-    return (
-      <BottomSheetModal
-        ref={ref}
-        enableDynamicSizing
-        enablePanDownToClose
-        backdropComponent={renderBackdrop}
-        backgroundStyle={{ backgroundColor: theme.app.surface }}
-        handleIndicatorStyle={{ backgroundColor: theme.app.borderSubtle }}
-      >
-        <PickerBody {...props} />
-      </BottomSheetModal>
-    );
-  },
-);
+  return (
+    <BottomSheetModal
+      ref={ref}
+      enableDynamicSizing
+      enablePanDownToClose
+      backdropComponent={renderBackdrop}
+      backgroundStyle={{ backgroundColor: theme.app.surface }}
+      handleIndicatorStyle={{ backgroundColor: theme.app.borderSubtle }}
+    >
+      <PickerBody {...props} />
+    </BottomSheetModal>
+  );
+});
