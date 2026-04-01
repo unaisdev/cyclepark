@@ -7,8 +7,9 @@ This directory holds **business rules** and **expected app behavior**. Files are
 | File | Contents |
 |------|----------|
 | [android-maps-and-pre-builds.md](./android-maps-and-pre-builds.md) | Android **PRE** vs standard `applicationId`, **Google Maps** keys, `local.properties`, Gradle/env secrets |
+| [in-app-purchases.md](./in-app-purchases.md) | **IAP / Billing**: SKU, `react-native-iap`, store setup hints, flows, PRE package, persistence |
 | [product-scope.md](./product-scope.md) | Product goal, MVP, out of scope, glossary |
-| [business-rules.md](./business-rules.md) | Explicit rules (data, votes, photos, states, limits) |
+| [business-rules.md](./business-rules.md) | Explicit rules (data, votes, photos, states, limits, IAP) |
 | [feature-behavior.md](./feature-behavior.md) | Behavior per screen/feature, flows, UI states |
 | [design-tokens.md](./design-tokens.md) | Transit (app), **Feedback**, and **§4 map markers** (states, stroke, pin placement) |
 | [git-conventions.md](./git-conventions.md) | Commit message convention (Conventional Commits) and atomic commits |
@@ -81,6 +82,7 @@ The app lives at the repo root (`package.json`, `app.json`, `index.ts`). Product
 | `react-native-svg` | SVG support for vector icons. |
 | `@react-native/normalize-colors` | Color normalization (internal/utilities). |
 | `react-native-nitro-modules` | Transitive dependency required by parts of the current native stack. |
+| `react-native-iap` | Google Play Billing + Apple In-App Purchase; non-consumable supporter product. See [in-app-purchases.md](./in-app-purchases.md). |
 | `i18next`, `react-i18next` | Translations and `useTranslation`. |
 
 ### Notable configuration
@@ -88,7 +90,7 @@ The app lives at the repo root (`package.json`, `app.json`, `index.ts`). Product
 - **`babel.config.js`:** `babel-preset-expo`, `react-native-unistyles/plugin` (`root: 'src'`), `react-native-reanimated/plugin` last.
 - **`metro.config.js`:** Expo `getDefaultConfig`; `resolveRequest` to resolve `lucide-react-native` to the real ESM bundle.
 - **`index.ts`:** imports `gesture-handler`, `./src/theme/register`, `./src/i18n`, then registers `App` from `./src/App`.
-- **`app.json` → plugins:** `expo-dev-client`, `react-native-edge-to-edge`, `expo-localization`, `expo-location` (when-in-use message). **Google Maps:** default keys in `app.json` / `android/.../strings.xml`; **PRE** builds inject a separate secret via Gradle — see [android-maps-and-pre-builds.md](./android-maps-and-pre-builds.md).
+- **`app.json` → plugins:** `expo-dev-client`, `react-native-edge-to-edge`, `react-native-iap`, `expo-localization`, `expo-notifications`, `expo-splash-screen`, `expo-location` (when-in-use message). **Google Maps:** default keys in `app.json` / `android/.../strings.xml`; **PRE** builds inject a separate secret via Gradle — see [android-maps-and-pre-builds.md](./android-maps-and-pre-builds.md). **Billing:** `com.android.vending.BILLING` — see [in-app-purchases.md](./in-app-purchases.md).
 
 ### Remote repository
 
@@ -108,3 +110,5 @@ Public code on GitHub: [github.com/unaisdev/cyclepark](https://github.com/unaisd
 | 2026-04-01 | Added `android-maps-and-pre-builds.md` (PRE package, Maps secrets, scripts). Linked from index and configuration notes. |
 | 2026-04-01 | `yarn android:pre*` runs `scripts/android-pre-run.cjs` so `.env.local` can supply `CICLEPARK_GOOGLE_MAPS_API_KEY_PRE`. |
 | 2026-04-01 | `android-maps-and-pre-builds.md`: Gradle reads repo-root `.env` / `.env.local`, DEBUG/RELEASE/PRE keys, `preBuild` checks, troubleshooting for wrong repo path. |
+| 2026-04-01 | Added `in-app-purchases.md` (SKU, billing architecture, Android offer token / PRE id, persistence). Linked from index, stack table, and `app.json` plugins note. |
+| 2026-04-01 | `feature-behavior.md`: F5 Paywall / IAP; `business-rules.md`: §7 BR-IAP-01–03. |

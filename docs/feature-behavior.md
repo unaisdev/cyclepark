@@ -11,8 +11,9 @@ The following describes **what is implemented in the client** versus this spec; 
 - **Navigation:** **Map**, **List**, and **Settings** tabs with a floating bar; stack includes **Profile** from the root. The product MVP mentioned few sections; the current shell already includes list/settings/profile as a base.
 - **F1 Map:** map screen with `react-native-maps`, search/filter/locate UI, Unistyles theme, and components under `src/screens/map/`. Parity with every F1 UI state and flow (“Search this area”, loading spots by viewport, etc.) should be checked point by point against the numbered behavior below.
 - **F2 Detail / F3 Add / F4 Photos:** this document remains the reference; wire each flow to real screens and APIs when backend and data exist.
-- **i18n:** Spanish, English, and Catalan; sync with device language and persisted preferences.
+- **i18n:** Spanish, English, Catalan, and Basque; sync with device language and persisted preferences.
 - **Theme:** light/dark via tokens and `react-native-unistyles`.
+- **Paywall / IAP:** non-consumable **supporter** product (`ciclepark_supporter_unlock`); bootstrap on app start; paywall from **Profile** and **Settings → Support**. See [in-app-purchases.md](./in-app-purchases.md).
 
 ---
 
@@ -143,6 +144,38 @@ Create a spot with **confirmed location** and **photo** per business rules.
 
 ---
 
+## F5 — Paywall / supporter (IAP)
+
+### Purpose
+
+Let users **support the project** with a **one-time** in-app purchase; surface **thank-you** state when the entitlement is active.
+
+### Entry
+
+- **Profile:** primary CTA opens the paywall stack screen.
+- **Settings → Support** (`screens.settings.premium.rowTitle`): row opens the same paywall.
+
+### Behavior
+
+1. On app launch, **billing bootstrap** connects to the store and refreshes entitlement from **active purchases** (see [in-app-purchases.md](./in-app-purchases.md)).
+2. **Not entitled:** show pitch copy, localized **price** from the store when the product loads, **Buy** and **Restore purchases**.
+3. **Entitled:** show supporter copy and feature rows; hide purchase buttons; optional status in Profile and Settings.
+4. **Errors** (e.g. product missing, Billing unavailable): show message from `billingStore.lastError`; PRE Android builds may append a hint about `applicationId` mismatch.
+
+### UI states
+
+| State | Behavior |
+|-------|-----------|
+| Loading | Purchase / restore buttons reflect `isLoading` (disabled or indicator per `PurchaseButtons`). |
+| Price unknown | Fallback string when `fetchProducts` has not returned the SKU yet. |
+| Error | Error text below actions; footer copy may be hidden when an error is shown. |
+
+### Exit
+
+- **Back** returns to Profile or Settings (stack pop).
+
+---
+
 ## MVP navigation summary
 
 ```text
@@ -152,6 +185,8 @@ F1 Map  ──tap pin──►  F2 Detail
    │
    ├── FAB+  ──►  F3 Add  ──► success ──► F1 or F2
    └── "Search this area"  ──► reload spots (visible area / viewport)
+
+Settings (Support row) / Profile CTA  ──►  F5 Paywall (IAP)
 ```
 
 ---
@@ -164,3 +199,4 @@ F1 Map  ──tap pin──►  F2 Detail
 | 2026-03-23 | F1: empty state (large FAB), “Search this area”, viewport threshold. |
 | 2026-03-24 | Added *Implementation status* and link to technical docs in `README.md`. |
 | 2026-03-24 | Translated to English. |
+| 2026-04-01 | F5 Paywall / IAP; implementation status + i18n note (Basque). Link to `in-app-purchases.md`. |

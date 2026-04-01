@@ -67,9 +67,20 @@ Living document. Rules marked **TODO** or **[TBD]** should be closed before or d
 
 ---
 
+## 7. Supporter purchase (in-app)
+
+| ID | Rule | Status |
+|----|------|--------|
+| BR-IAP-01 | The app offers **one** non-consumable in-app product (`ciclepark_supporter_unlock`) as a **supporter** / thank-you purchase. Store configuration and technical flow: [in-app-purchases.md](./in-app-purchases.md). | Active |
+| BR-IAP-02 | **Entitlement** is evaluated on-device via Apple / Google APIs; there is **no** backend receipt validation in the current client. **[TBD]** if a server should be introduced for fraud or cross-device sync. | Active (as implemented) |
+| BR-IAP-03 | Whether **map or list features** are gated behind purchase is a **product decision**; today the paywall is primarily **support** messaging. **[TBD]** if any feature must require entitlement. | Pending |
+
+---
+
 ### Change history (this file)
 
 | Date | Change |
 |------|--------|
 | 2026-03-23 | Initial version with rule IDs and explicit decision gaps. |
 | 2026-03-24 | Translated to English (`PENDIENTE` → `TODO`, `[DECIDIR]` → `[TBD]`). |
+| 2026-04-01 | §7 Supporter IAP (BR-IAP-01–03) and link to `in-app-purchases.md`. |
