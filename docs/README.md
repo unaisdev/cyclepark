@@ -107,3 +107,4 @@ Public code on GitHub: [github.com/unaisdev/cyclepark](https://github.com/unaisd
 | 2026-03-24 | Translated all documentation to English. |
 | 2026-04-01 | Added `android-maps-and-pre-builds.md` (PRE package, Maps secrets, scripts). Linked from index and configuration notes. |
 | 2026-04-01 | `yarn android:pre*` runs `scripts/android-pre-run.cjs` so `.env.local` can supply `CICLEPARK_GOOGLE_MAPS_API_KEY_PRE`. |
+| 2026-04-01 | `android-maps-and-pre-builds.md`: Gradle reads repo-root `.env` / `.env.local`, DEBUG/RELEASE/PRE keys, `preBuild` checks, troubleshooting for wrong repo path. |
