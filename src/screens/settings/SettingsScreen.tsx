@@ -1,7 +1,17 @@
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { ChevronRight, HeartHandshake, Languages, Palette, type LucideIcon } from 'lucide-react-native';
+import {
+  ChevronRight,
+  HeartHandshake,
+  Languages,
+  Monitor,
+  Moon,
+  Palette,
+  Smartphone,
+  Sun,
+  type LucideIcon,
+} from 'lucide-react-native';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Pressable, ScrollView, Text, View } from 'react-native';
@@ -152,20 +162,20 @@ export function SettingsScreen() {
 
   const appearanceOptions: SettingsPickerOption[] = useMemo(
     () => [
-      { value: 'system', label: t('screens.settings.appearance.system') },
-      { value: 'light', label: t('screens.settings.appearance.light') },
-      { value: 'dark', label: t('screens.settings.appearance.dark') },
+      { value: 'system', label: t('screens.settings.appearance.system'), Icon: Monitor },
+      { value: 'light', label: t('screens.settings.appearance.light'), Icon: Sun },
+      { value: 'dark', label: t('screens.settings.appearance.dark'), Icon: Moon },
     ],
     [t],
   );
 
   const localeOptions: SettingsPickerOption[] = useMemo(
     () => [
-      { value: 'system', label: t('screens.settings.language.system') },
-      { value: 'es', label: t('screens.settings.language.es') },
-      { value: 'en', label: t('screens.settings.language.en') },
-      { value: 'ca', label: t('screens.settings.language.ca') },
-      { value: 'eu', label: t('screens.settings.language.eu') },
+      { value: 'system', label: t('screens.settings.language.system'), Icon: Smartphone },
+      { value: 'es', label: t('screens.settings.language.es'), leadingCode: 'ES' },
+      { value: 'en', label: t('screens.settings.language.en'), leadingCode: 'EN' },
+      { value: 'ca', label: t('screens.settings.language.ca'), leadingCode: 'CA' },
+      { value: 'eu', label: t('screens.settings.language.eu'), leadingCode: 'EU' },
     ],
     [t],
   );
@@ -211,6 +221,11 @@ export function SettingsScreen() {
     pickerKind === 'appearance'
       ? t('screens.settings.appearance.sheetTitle')
       : t('screens.settings.language.sheetTitle');
+
+  const sheetSubtitle =
+    pickerKind === 'appearance'
+      ? t('screens.settings.appearance.sheetSubtitle')
+      : t('screens.settings.language.sheetSubtitle');
 
   const sheetOptions = pickerKind === 'appearance' ? appearanceOptions : localeOptions;
   const sheetSelected = pickerKind === 'appearance' ? appearance : localeMode;
@@ -263,9 +278,10 @@ export function SettingsScreen() {
       </ScrollView>
 
       <SettingsOptionPickerSheet
+        key={pickerKind}
         ref={pickerRef}
-        sheetInstanceKey={pickerKind}
         title={sheetTitle}
+        subtitle={sheetSubtitle}
         options={sheetOptions}
         selectedValue={sheetSelected}
         onSelectValue={onPick}

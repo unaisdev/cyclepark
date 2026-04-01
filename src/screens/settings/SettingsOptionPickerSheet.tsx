@@ -6,47 +6,51 @@ import {
   type BottomSheetBackdropProps,
 } from '@gorhom/bottom-sheet';
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
-import { Check } from 'lucide-react-native';
+import type { LucideIcon } from 'lucide-react-native';
 import { forwardRef, useCallback } from 'react';
-import { Pressable, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { StyleSheet, useUnistyles } from 'react-native-unistyles';
+import { SettingsPickerOptionCard } from './SettingsPickerOptionCard';
 
 const styles = StyleSheet.create((theme) => ({
   content: {
     paddingHorizontal: theme.layout.space4,
     paddingBottom: theme.layout.space6,
   },
-  title: {
-    ...theme.typography.titleMedium,
-    color: theme.app.textPrimary,
-    textAlign: 'center',
+  header: {
     marginBottom: theme.layout.space4,
-    paddingHorizontal: theme.layout.space2,
+    alignSelf: 'stretch',
   },
-  optionRow: {
-    minHeight: 52,
-    paddingVertical: theme.layout.space3,
-    paddingHorizontal: theme.layout.space3,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderRadius: theme.layout.radiusMd,
-  },
-  optionLabel: {
-    ...theme.typography.body,
+  title: {
+    ...theme.typography.titleLarge,
+    fontSize: 30,
+    lineHeight: 36,
     color: theme.app.textPrimary,
-    flex: 1,
-    paddingRight: theme.layout.space3,
+    textAlign: 'left',
+  },
+  subtitle: {
+    ...theme.typography.caption,
+    color: theme.app.textSecondary,
+    textAlign: 'left',
+    marginTop: theme.layout.space3,
+    lineHeight: 20,
+  },
+  options: {
+    gap: theme.layout.space3,
   },
 }));
 
 export type SettingsPickerOption = {
   value: string;
   label: string;
+  description?: string;
+  Icon?: LucideIcon;
+  leadingCode?: string;
 };
 
 type SettingsOptionPickerSheetProps = {
   title: string;
+  subtitle?: string;
   options: SettingsPickerOption[];
   selectedValue: string;
   onSelectValue: (value: string) => void;
@@ -54,11 +58,11 @@ type SettingsOptionPickerSheetProps = {
 
 function PickerBody({
   title,
+  subtitle,
   options,
   selectedValue,
   onSelectValue,
 }: SettingsOptionPickerSheetProps) {
-  const { theme } = useUnistyles();
   const { close } = useBottomSheet();
 
   const onPick = useCallback(
@@ -74,24 +78,27 @@ function PickerBody({
       contentContainerStyle={styles.content}
       keyboardShouldPersistTaps="handled"
     >
-      <Text style={styles.title}>{title}</Text>
-      <View>
+      <View style={styles.header}>
+        <Text style={styles.title}>{title}</Text>
+        {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
+      </View>
+      <View
+        style={styles.options}
+        accessibilityRole="radiogroup"
+        accessibilityLabel={title}
+      >
         {options.map((opt) => {
           const selected = opt.value === selectedValue;
           return (
-            <Pressable
+            <SettingsPickerOptionCard
               key={opt.value}
+              label={opt.label}
+              description={opt.description}
+              selected={selected}
               onPress={() => onPick(opt.value)}
-              style={({ pressed }) => [
-                styles.optionRow,
-                { backgroundColor: pressed ? theme.app.surfaceMuted : 'transparent' },
-              ]}
-              accessibilityRole="button"
-              accessibilityState={{ selected }}
-            >
-              <Text style={styles.optionLabel}>{opt.label}</Text>
-              {selected ? <Check size={22} color={theme.app.primary} strokeWidth={2.5} /> : null}
-            </Pressable>
+              Icon={opt.Icon}
+              leadingCode={opt.leadingCode}
+            />
           );
         })}
       </View>
