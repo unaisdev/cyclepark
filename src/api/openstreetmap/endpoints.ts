@@ -14,6 +14,13 @@ export const OSM_API_MAP_PATH = '/api/0.6/map';
 /** Límite documentado en la wiki de la API 0.6 para el tamaño del bbox. */
 export const OSM_MAP_MAX_BBOX_SPAN_DEGREES = 0.25;
 
+/**
+ * Zoom mínimo para disparar `GET /api/0.6/map`: si la vista es más ancha que esto
+ * (`latitudeDelta` / `longitudeDelta`), no se hace la petición (menos carga y menos riesgo de respuestas enormes).
+ * Debe ser ≤ {@link OSM_MAP_MAX_BBOX_SPAN_DEGREES} (la región inicial del mapa usa ese máximo).
+ */
+export const OSM_MAP_QUERY_MAX_VISIBLE_REGION_DELTA_DEGREES = 0.12;
+
 export type OpenStreetMapServer = 'production' | 'sandbox';
 
 export function getOpenStreetMapOrigin(server: OpenStreetMapServer): string {

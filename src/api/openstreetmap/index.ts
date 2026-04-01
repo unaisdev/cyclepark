@@ -3,6 +3,7 @@ export {
   OSM_API_PRODUCTION_ORIGIN,
   OSM_API_SANDBOX_ORIGIN,
   OSM_MAP_MAX_BBOX_SPAN_DEGREES,
+  OSM_MAP_QUERY_MAX_VISIBLE_REGION_DELTA_DEGREES,
   buildMapByBoundingBoxUrl,
   formatMapBoundingBoxQuery,
   getOpenStreetMapOrigin,
@@ -19,6 +20,7 @@ export { parseOsmMapXmlToBicycleParkings } from './osmXmlBicycleParkingParser';
 export { osmQueryKeys } from './queryKeys';
 export {
   boundingBoxFromLatLngBounds,
+  isRegionZoomedInEnoughForOsmQuery,
   isValidOsmMapBoundingBox,
   osmBoundingBoxFromMapRegion,
   osmQueryBBoxFromVisibleRegion,

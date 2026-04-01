@@ -1,5 +1,8 @@
 import type { Region } from 'react-native-maps';
-import { OSM_MAP_MAX_BBOX_SPAN_DEGREES } from './endpoints';
+import {
+  OSM_MAP_MAX_BBOX_SPAN_DEGREES,
+  OSM_MAP_QUERY_MAX_VISIBLE_REGION_DELTA_DEGREES,
+} from './endpoints';
 import type { OsmMapBoundingBox } from './types';
 
 export function isValidOsmMapBoundingBox(bbox: OsmMapBoundingBox): boolean {
@@ -39,6 +42,14 @@ export function osmBoundingBoxFromMapRegion(region: Region): OsmMapBoundingBox {
     minLon: region.longitude - halfLon,
     maxLon: region.longitude + halfLon,
   };
+}
+
+/** Vista suficientemente cercana para pedir aparcabicis a la API OSM sin disparar descargas con vista demasiado amplia. */
+export function isRegionZoomedInEnoughForOsmQuery(region: Region): boolean {
+  return (
+    region.latitudeDelta <= OSM_MAP_QUERY_MAX_VISIBLE_REGION_DELTA_DEGREES &&
+    region.longitudeDelta <= OSM_MAP_QUERY_MAX_VISIBLE_REGION_DELTA_DEGREES
+  );
 }
 
 /**
