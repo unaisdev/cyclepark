@@ -53,6 +53,8 @@ export type MapViewCanvasProps = {
     region: Region,
     details: { isGesture?: boolean },
   ) => void;
+  /** Inicio de cambio de región (p. ej. arrastre); `nativeEvent.isGesture` en Google Maps. */
+  onRegionChangeStart?: MapViewProps['onRegionChangeStart'];
   onMapReady?: MapViewProps['onMapReady'];
 };
 
@@ -69,6 +71,7 @@ const MapViewCanvasInner = forwardRef<MapView, MapViewCanvasProps>(function MapV
     systemLocaleKey = 'system',
     children,
     onRegionChangeComplete,
+    onRegionChangeStart,
     onMapReady,
   },
   ref,
@@ -109,6 +112,7 @@ const MapViewCanvasInner = forwardRef<MapView, MapViewCanvasProps>(function MapV
         poiClickEnabled={false}
         userInterfaceStyle={Platform.OS === 'ios' ? (isDark ? 'dark' : 'light') : undefined}
         onRegionChangeComplete={onRegionChangeComplete}
+        onRegionChangeStart={onRegionChangeStart}
         onMapReady={onMapReady}
       >
         {children}
