@@ -6,6 +6,7 @@ This directory holds **business rules** and **expected app behavior**. Files are
 
 | File | Contents |
 |------|----------|
+| [ios-local-build-and-maps.md](./ios-local-build-and-maps.md) | iOS **dev client**, `expo prebuild`, **bundle id** / display name, **Google Maps** keys via `app.config.ts`, signing, troubleshooting |
 | [android-maps-and-pre-builds.md](./android-maps-and-pre-builds.md) | Android **PRE** vs standard `applicationId`, **Google Maps** keys, `local.properties`, Gradle/env secrets |
 | [in-app-purchases.md](./in-app-purchases.md) | **IAP / Billing**: SKU, `react-native-iap`, store setup hints, flows, PRE package, persistence |
 | [product-scope.md](./product-scope.md) | Product goal, MVP, out of scope, glossary |
@@ -38,9 +39,10 @@ The app lives at the repo root (`package.json`, `app.json`, `index.ts`). Product
 | Script | Purpose |
 |--------|---------|
 | `yarn start` / `npm run start` | Expo with **dev client** (`expo start --dev-client`). |
+| `yarn start:localhost` | Same with **`--localhost`** (mejor con **simulador iOS** si falla la URL LAN); ver [ios-local-build-and-maps.md](./ios-local-build-and-maps.md). |
 | `yarn start:go` | Expo Go (`expo start`). |
 | `yarn start:clean` | Bundler with clean cache (`expo start -c`). |
-| `yarn android` / `yarn ios` | `expo run:android` / `expo run:ios` (native build after prebuild if applicable). |
+| `yarn android` / `yarn ios` | `expo run:android` / `expo run:ios` (native build after prebuild if applicable). iOS flow: [ios-local-build-and-maps.md](./ios-local-build-and-maps.md). |
 | `yarn android:pre` / `yarn android:pre:release` | Android **PRE** package (`com.anonymous.ciclepark.pre`). Injects Maps key from `.env.local` / `.env` into Gradle when set; see [android-maps-and-pre-builds.md](./android-maps-and-pre-builds.md). |
 | `yarn prebuild` | Generate/update native projects (`expo prebuild`). |
 | `yarn prebuild:android:pre` | Prebuild Android with `APP_VARIANT=pre`. |
@@ -90,7 +92,7 @@ The app lives at the repo root (`package.json`, `app.json`, `index.ts`). Product
 - **`babel.config.js`:** `babel-preset-expo`, `react-native-unistyles/plugin` (`root: 'src'`), `react-native-reanimated/plugin` last.
 - **`metro.config.js`:** Expo `getDefaultConfig`; `resolveRequest` to resolve `lucide-react-native` to the real ESM bundle.
 - **`index.ts`:** imports `gesture-handler`, `./src/theme/register`, `./src/i18n`, then registers `App` from `./src/App`.
-- **`app.json` → plugins:** `expo-dev-client`, `react-native-edge-to-edge`, `react-native-iap`, `expo-localization`, `expo-notifications`, `expo-splash-screen`, `expo-location` (when-in-use message). **Google Maps:** default keys in `app.json` / `android/.../strings.xml`; **PRE** builds inject a separate secret via Gradle — see [android-maps-and-pre-builds.md](./android-maps-and-pre-builds.md). **Billing:** `com.android.vending.BILLING` — see [in-app-purchases.md](./in-app-purchases.md).
+- **`app.json` → plugins:** `expo-dev-client`, `react-native-edge-to-edge`, `react-native-iap`, `expo-localization`, `expo-notifications`, `expo-splash-screen`, `expo-location` (when-in-use message). **Google Maps:** `app.json` defaults; **Android** Gradle + `.env` per variant — [android-maps-and-pre-builds.md](./android-maps-and-pre-builds.md); **iOS** `ios.config.googleMapsApiKey` from **`app.config.ts`** + env (`.env.local`) — [ios-local-build-and-maps.md](./ios-local-build-and-maps.md). **Billing:** `com.android.vending.BILLING` — see [in-app-purchases.md](./in-app-purchases.md).
 
 ### Remote repository
 
@@ -112,3 +114,5 @@ Public code on GitHub: [github.com/unaisdev/cyclepark](https://github.com/unaisd
 | 2026-04-01 | `android-maps-and-pre-builds.md`: Gradle reads repo-root `.env` / `.env.local`, DEBUG/RELEASE/PRE keys, `preBuild` checks, troubleshooting for wrong repo path. |
 | 2026-04-01 | Added `in-app-purchases.md` (SKU, billing architecture, Android offer token / PRE id, persistence). Linked from index, stack table, and `app.json` plugins note. |
 | 2026-04-01 | `feature-behavior.md`: F5 Paywall / IAP; `business-rules.md`: §7 BR-IAP-01–03. |
+| 2026-04-02 | Added `ios-local-build-and-maps.md` (prebuild, dev client, Maps env, bundle id). `app.config.ts`: `ios.bundleIdentifier` + iOS Maps key resolution. |
+| 2026-04-02 | `yarn start:localhost` for iOS Simulator + Metro LAN troubleshooting in `ios-local-build-and-maps.md`. |

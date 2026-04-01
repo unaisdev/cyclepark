@@ -13,10 +13,38 @@ function isPreVariant(): boolean {
 }
 
 /**
- * Solo nombre y `android.package` según APP_VARIANT / APP_BUILD_TYPE.
- * Claves de Maps: `app.json` (y en Android, `android/app/build.gradle` + `.env.local` por variante).
- * Evita `expo prebuild --platform android` si ya versionas `android/`: regenera nativo y puede pisar tus cambios.
+ * Nombre de app, `android.package`, `ios.bundleIdentifier` y clave de Google Maps en iOS
+ * según `APP_VARIANT` / `APP_BUILD_TYPE` y variables de entorno (ver `.env.example`).
+ * Android Maps sigue resolviéndose en Gradle + `.env.local` tras prebuild.
+ * Evita `expo prebuild` si versionas `ios/` o `android/` a mano: puede pisar cambios nativos.
  */
+function resolveIosGoogleMapsApiKey(
+  ios: ExpoConfig['ios'] | undefined,
+  pre: boolean,
+  debug: boolean,
+): string {
+  const fallback =
+    typeof ios?.config?.googleMapsApiKey === 'string'
+      ? ios.config.googleMapsApiKey
+      : '';
+
+  const iosOnly = process.env.CICLEPARK_GOOGLE_MAPS_API_KEY_IOS?.trim();
+  if (iosOnly) return iosOnly;
+
+  if (pre) {
+    const v = process.env.CICLEPARK_GOOGLE_MAPS_API_KEY_PRE?.trim();
+    if (v) return v;
+  } else if (debug) {
+    const v = process.env.CICLEPARK_GOOGLE_MAPS_API_KEY_DEBUG?.trim();
+    if (v) return v;
+  } else {
+    const v = process.env.CICLEPARK_GOOGLE_MAPS_API_KEY_RELEASE?.trim();
+    if (v) return v;
+  }
+
+  return fallback;
+}
+
 export default ({ config }: ConfigContext): ExpoConfig => {
   const pre = isPreVariant();
   const debug = isDebugBuild();
@@ -34,12 +62,22 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     (debug ? 'DEBUG' : '') +
     baseName;
 
+  const googleMapsApiKey = resolveIosGoogleMapsApiKey(config.ios, pre, debug);
+
   return {
     ...config,
     name: appName,
     android: {
       ...config.android,
       package: androidPackage,
+    },
+    ios: {
+      ...config.ios,
+      bundleIdentifier: androidPackage,
+      config: {
+        ...config.ios?.config,
+        googleMapsApiKey,
+      },
     },
   } as ExpoConfig;
 };

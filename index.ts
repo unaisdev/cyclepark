@@ -1,4 +1,5 @@
 import 'react-native-gesture-handler';
+import 'react-native-nitro-modules';
 import './src/theme/register';
 import './src/i18n';
 

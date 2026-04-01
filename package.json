@@ -4,6 +4,7 @@
   "main": "index.ts",
   "scripts": {
     "start": "expo start --dev-client",
+    "start:localhost": "expo start --dev-client --localhost",
     "start:go": "expo start",
     "start:clean": "expo start -c",
     "android": "cross-env APP_BUILD_TYPE=debug expo run:android",

@@ -10,7 +10,8 @@
       "supportsTablet": true,
       "config": {
         "googleMapsApiKey": "AIzaSyD_At6XWhj78Q2j7Gz9KHJzNdo1ygMHA6Q"
-      }
+      },
+      "bundleIdentifier": "com.anonymous.ciclepark.debug"
     },
     "android": {
       "adaptiveIcon": {
@@ -19,7 +20,9 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "permissions": ["com.android.vending.BILLING"],
+      "permissions": [
+        "com.android.vending.BILLING"
+      ],
       "predictiveBackGestureEnabled": false,
       "package": "com.anonymous.ciclepark",
       "config": {
