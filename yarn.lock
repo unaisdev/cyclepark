@@ -1619,6 +1619,18 @@
   dependencies:
     nanoid "^3.3.11"
 
+"@shopify/react-native-skia@2.5.5":
+  version "2.5.5"
+  resolved "https://registry.yarnpkg.com/@shopify/react-native-skia/-/react-native-skia-2.5.5.tgz#508368343e1293895558038a5010a0c454f57232"
+  integrity sha512-yMPq1P+zhL/kPUvnx74Mbt3LNxDGqOVN+aJPdTS3gLsFMS75K+azg0sLVH7+smrv2XlM7XpTi4IT/l4pUjFtoA==
+  dependencies:
+    canvaskit-wasm "0.40.0"
+    react-native-skia-android "144.3.0"
+    react-native-skia-apple-ios "144.3.0"
+    react-native-skia-apple-macos "144.3.0"
+    react-native-skia-apple-tvos "144.3.0"
+    react-reconciler "0.31.0"
+
 "@sinclair/typebox@^0.27.8":
   version "0.27.10"
   resolved "https://registry.yarnpkg.com/@sinclair/typebox/-/typebox-0.27.10.tgz#beefe675f1853f73676aecc915b2bd2ac98c4fc6"
@@ -1770,6 +1782,11 @@
   dependencies:
     "@urql/core" "^5.1.2"
     wonka "^6.3.2"
+
+"@webgpu/types@0.1.21":
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/@webgpu/types/-/types-0.1.21.tgz#b181202daec30d66ccd67264de23814cfd176d3a"
+  integrity sha512-pUrWq3V5PiSGFLeLxoGqReTZmiiXwY3jRkIG5sLLKjyqNxrwm/04b4nw7LSmGWJcKk59XOM/YRTUwOzo4MMlow==
 
 "@xmldom/xmldom@^0.8.8":
   version "0.8.11"
@@ -2227,6 +2244,13 @@ caniuse-lite@^1.0.30001759:
   version "1.0.30001781"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001781.tgz#344b47c03eb8168b79c3c158b872bcfbdd02a400"
   integrity sha512-RdwNCyMsNBftLjW6w01z8bKEvT6e/5tpPVEgtn22TiLGlstHOVecsX2KHFkD5e/vRnIE4EGzpuIODb3mtswtkw==
+
+canvaskit-wasm@0.40.0:
+  version "0.40.0"
+  resolved "https://registry.yarnpkg.com/canvaskit-wasm/-/canvaskit-wasm-0.40.0.tgz#61a77657259fddfc0025ad1c3f57ac8d4d5850ff"
+  integrity sha512-Od2o+ZmoEw9PBdN/yCGvzfu0WVqlufBPEWNG452wY7E9aT8RBE+ChpZF526doOlg7zumO4iCS+RAeht4P0Gbpw==
+  dependencies:
+    "@webgpu/types" "0.1.21"
 
 chalk@^2.0.1, chalk@^2.4.2:
   version "2.4.2"
@@ -4660,6 +4684,26 @@ react-native-screens@~4.16.0:
     react-native-is-edge-to-edge "^1.2.1"
     warn-once "^0.1.0"
 
+react-native-skia-android@144.3.0:
+  version "144.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-skia-android/-/react-native-skia-android-144.3.0.tgz#f95827f80ab5d7ecd101b688ba41d765492a34ee"
+  integrity sha512-0XsW8JQAgNBNvCwp/ypOKDF5CjKOlCTBfj43gYXK/clystG7e4y3XF/4v0vw9Slekj9BSQruHqGYpfs5hWgO/g==
+
+react-native-skia-apple-ios@144.3.0:
+  version "144.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-skia-apple-ios/-/react-native-skia-apple-ios-144.3.0.tgz#958502b9eaa1f0600917e5f774684f985a2d23cc"
+  integrity sha512-gY8M6IiYhQR9J1xHvAbH4M5pcgS3wsBal/jETcwb7LHaPuxiRkig3Y3Bcl4yK5JgHomcrl18oWVj3xh3UqR2cg==
+
+react-native-skia-apple-macos@144.3.0:
+  version "144.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-skia-apple-macos/-/react-native-skia-apple-macos-144.3.0.tgz#a8422828766868e99e423ad3442afb21fa4ee071"
+  integrity sha512-+2kYg+kfVRJX/FAsg+jIcvDQHTG9DzkI+b9GG4XdqHG/ixR4yd5opZ95l9rjLJuRGhnE+AB6StAz5zhjWFhHuw==
+
+react-native-skia-apple-tvos@144.3.0:
+  version "144.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-skia-apple-tvos/-/react-native-skia-apple-tvos-144.3.0.tgz#7643564ee445fd5b685f23248d1bd7b6cfc673e5"
+  integrity sha512-Xq4N1xlIzZQgx/6LfkHbSCn5poo0O1D/5LjKmQvfVOrUkOe2Det4OdXrmbsVLFaeh7soB6Bn290s31agD011tw==
+
 react-native-svg@15.12.1:
   version "15.12.1"
   resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-15.12.1.tgz#7ba756dd6a235f86a2c312a1e7911f9b0d18ad3a"
@@ -4732,6 +4776,13 @@ react-native@0.81.5:
     whatwg-fetch "^3.0.0"
     ws "^6.2.3"
     yargs "^17.6.2"
+
+react-reconciler@0.31.0:
+  version "0.31.0"
+  resolved "https://registry.yarnpkg.com/react-reconciler/-/react-reconciler-0.31.0.tgz#6b7390fe8fab59210daf523d7400943973de1458"
+  integrity sha512-7Ob7Z+URmesIsIVRjnLoDGwBEG/tVitidU0nMsqX/eeJaLY89RISO/10ERe0MqmzuKUUB1rmY+h1itMbUHg9BQ==
+  dependencies:
+    scheduler "^0.25.0"
 
 react-refresh@^0.14.0, react-refresh@^0.14.2:
   version "0.14.2"
@@ -4877,6 +4928,11 @@ scheduler@0.26.0:
   version "0.26.0"
   resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.26.0.tgz#4ce8a8c2a2095f13ea11bf9a445be50c555d6337"
   integrity sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==
+
+scheduler@^0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.25.0.tgz#336cd9768e8cceebf52d3c80e3dcf5de23e7e015"
+  integrity sha512-xFVuu11jh+xcO7JOAGJNOXld8/TcEHK/4CituBUeUb5hqxJLj9YuemAEuvm9gQ/+pgXYfbQuqAkiYu+u7YEsNA==
 
 semver@7.7.2:
   version "7.7.2"
