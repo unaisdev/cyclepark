@@ -31,6 +31,10 @@ export const eu: TranslationResources = {
       mapActivityGeocoding: 'Mapan bilatzen…',
       mapActivityLocating: 'Zure posizioa kokatzen…',
       mapActivityLoadingParkings: 'Inguruko bizikleta-aparkalekuak kargatzen…',
+      mapOsmRequestZoomInRequired:
+        'Hurbildu mapa bizikleta-aparkalekuak kargatzeko (ikuspegi estuagoa {{maxDelta}}° baino).',
+      mapOsmRequestLoaded: 'Deskarga osatuta: {{count}} aparkaleku eremu honetan.',
+      mapOsmRequestLoadError: 'Ezin izan dira aparkalekuak kargatu. Saiatu berriro.',
       osmTooManyNodesHint: 'Handitu zooma aparkalekuak aurkitzeko',
       searchThisArea: 'Bilatu eremu honetan',
       searchThisAreaA11y: 'Bilatu bizikleta-aparkalekuak mapan ikusgai dagoen eremuan',
@@ -166,9 +170,12 @@ export const eu: TranslationResources = {
       caption:
         'Backend-a konektatzen dugunean zure kontua hemen ikusi eta editatu ahal izango duzu.',
       openPaywall: 'Lagundu CiclePark',
-      premiumActive: 'Supporter modua aktibo dago',
+      supporterThankYouTitle: 'Eskerrik asko CiclePark-en parte izateagatik',
+      supporterThankYouBody:
+        'Zure babesak bizikleta-aparkalekuen mapa mantentzen eta hobetzen laguntzen du. Proiektuarentzat asko esan nahi du!',
       a11y: {
         back: 'Atzera',
+        supporterCard: 'CiclePark-en supporter zara. Eskerrik asko proiektua babesteagatik.',
       },
     },
     paywall: {
@@ -211,6 +218,7 @@ export const eu: TranslationResources = {
       appearance: {
         rowTitle: 'Modu iluna',
         sheetTitle: 'Itxura',
+        sheetSubtitle: 'Sakatu aukera bat berehala aplikatzeko.',
         system: 'Automatikoa',
         light: 'Argia',
         dark: 'Iluna',
@@ -218,6 +226,7 @@ export const eu: TranslationResources = {
       language: {
         rowTitle: 'Hizkuntza',
         sheetTitle: 'Hizkuntza',
+        sheetSubtitle: 'Sakatu aplikazio osoan erabili nahi duzun hizkuntza.',
         system: 'Automatikoa',
         es: 'Español',
         en: 'English',

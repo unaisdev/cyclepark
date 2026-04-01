@@ -29,6 +29,10 @@ export const en: TranslationResources = {
       mapActivityGeocoding: 'Searching the map…',
       mapActivityLocating: 'Finding your position…',
       mapActivityLoadingParkings: 'Loading bike parking nearby…',
+      mapOsmRequestZoomInRequired:
+        'Zoom in closer to load bike parking (narrower view than {{maxDelta}}°).',
+      mapOsmRequestLoaded: 'Download complete: {{count}} bike parking spots in this area.',
+      mapOsmRequestLoadError: 'Could not load bike parking. Try again.',
       osmTooManyNodesHint: 'Zoom in to discover bike parking',
       searchThisArea: 'Search this area',
       searchThisAreaA11y: 'Search for bike parking in the visible map area',
@@ -163,9 +167,12 @@ export const en: TranslationResources = {
       title: 'Profile',
       caption: 'You will be able to view and edit your account here once we connect the backend.',
       openPaywall: 'Support CiclePark',
-      premiumActive: 'Supporter mode is active',
+      supporterThankYouTitle: 'Thank you for being part of CiclePark',
+      supporterThankYouBody:
+        'Your support helps maintain and improve the bike parking map. It means a lot to the project!',
       a11y: {
         back: 'Go back',
+        supporterCard: 'You are a CiclePark supporter. Thank you for supporting the project.',
       },
     },
     paywall: {
@@ -206,6 +213,7 @@ export const en: TranslationResources = {
       appearance: {
         rowTitle: 'Dark mode',
         sheetTitle: 'Appearance',
+        sheetSubtitle: 'Tap an option to apply it right away.',
         system: 'Automatic',
         light: 'Light',
         dark: 'Dark',
@@ -213,6 +221,7 @@ export const en: TranslationResources = {
       language: {
         rowTitle: 'Language',
         sheetTitle: 'Language',
+        sheetSubtitle: 'Tap a language to use it across the app.',
         system: 'Automatic',
         es: 'Español',
         en: 'English',

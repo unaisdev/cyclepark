@@ -30,6 +30,10 @@ export const ca: TranslationResources = {
       mapActivityGeocoding: 'Cercant al mapa…',
       mapActivityLocating: 'Situant la teva posició…',
       mapActivityLoadingParkings: 'Carregant aparcabicis propers…',
+      mapOsmRequestZoomInRequired:
+        'Acosta més el mapa per carregar aparcabicis (vista més estreta que {{maxDelta}}°).',
+      mapOsmRequestLoaded: 'Baixada completa: {{count}} aparcabicis a la zona.',
+      mapOsmRequestLoadError: 'No s’han pogut carregar els aparcabicis. Torna-ho a provar.',
       osmTooManyNodesHint: 'Fes zoom per descobrir els aparcaments',
       searchThisArea: 'Cercar en aquesta zona',
       searchThisAreaA11y: 'Cercar aparcaments de bicicletes a la zona visible del mapa',
@@ -164,9 +168,12 @@ export const ca: TranslationResources = {
       title: 'Perfil',
       caption: 'Aquí podràs veure i editar el teu compte quan connectem el backend.',
       openPaywall: 'Donar suport a CiclePark',
-      premiumActive: 'Mode supporter actiu',
+      supporterThankYouTitle: 'Gràcies per formar part de CiclePark',
+      supporterThankYouBody:
+        'El teu suport ajuda a mantenir i millorar el mapa d’aparcabicis. Significa molt per al projecte!',
       a11y: {
         back: 'Tornar',
+        supporterCard: 'Ets supporter de CiclePark. Gràcies per donar suport al projecte.',
       },
     },
     paywall: {
@@ -207,6 +214,7 @@ export const ca: TranslationResources = {
       appearance: {
         rowTitle: 'Mode fosc',
         sheetTitle: 'Mode fosc',
+        sheetSubtitle: 'Toca una opció per aplicar-la a l’instant.',
         system: 'Automàtic',
         light: 'Clar',
         dark: 'Fosc',
@@ -214,6 +222,7 @@ export const ca: TranslationResources = {
       language: {
         rowTitle: 'Idioma',
         sheetTitle: 'Idioma',
+        sheetSubtitle: 'Toca l’idioma que vols fer servir a tota l’app.',
         system: 'Automàtic',
         es: 'Español',
         en: 'English',

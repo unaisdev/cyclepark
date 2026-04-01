@@ -37,6 +37,12 @@ export interface TranslationResources {
       mapActivityLocating: string;
       /** Indicador: cargando aparcabicis OSM en el área visible. */
       mapActivityLoadingParkings: string;
+      /** Vista demasiado alejada: no se lanza la petición OSM hasta acercar más (usa `{{maxDelta}}`). */
+      mapOsmRequestZoomInRequired: string;
+      /** Tras una descarga OSM correcta (usa `{{count}}`). */
+      mapOsmRequestLoaded: string;
+      /** Error genérico al descargar aparcabicis OSM (no sustituye la pista de demasiados nodos). */
+      mapOsmRequestLoadError: string;
       /** OSM devolvió demasiados nodos en el área: pedir acercar el mapa. */
       osmTooManyNodesHint: string;
       /** CTA: cargar aparcabicis OSM para la vista actual del mapa. */
@@ -141,9 +147,11 @@ export interface TranslationResources {
       title: string;
       caption: string;
       openPaywall: string;
-      premiumActive: string;
+      supporterThankYouTitle: string;
+      supporterThankYouBody: string;
       a11y: {
         back: string;
+        supporterCard: string;
       };
     };
     paywall: {
@@ -184,6 +192,7 @@ export interface TranslationResources {
       appearance: {
         rowTitle: string;
         sheetTitle: string;
+        sheetSubtitle: string;
         system: string;
         light: string;
         dark: string;
@@ -191,6 +200,7 @@ export interface TranslationResources {
       language: {
         rowTitle: string;
         sheetTitle: string;
+        sheetSubtitle: string;
         system: string;
         es: string;
         en: string;

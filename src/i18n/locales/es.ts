@@ -30,6 +30,10 @@ export const es: TranslationResources = {
       mapActivityGeocoding: 'Buscando en el mapa…',
       mapActivityLocating: 'Situando tu posición…',
       mapActivityLoadingParkings: 'Cargando aparcabicis cercanos…',
+      mapOsmRequestZoomInRequired:
+        'Acerca más el mapa para cargar aparcabicis (vista más estrecha que {{maxDelta}}°).',
+      mapOsmRequestLoaded: 'Descarga completada: {{count}} aparcabicis en el área.',
+      mapOsmRequestLoadError: 'No se pudieron cargar los aparcabicis. Inténtalo de nuevo.',
       osmTooManyNodesHint: 'Haz zoom para descubrir los aparcamientos',
       searchThisArea: 'Buscar en esta zona',
       searchThisAreaA11y: 'Buscar aparcabicis en el área visible del mapa',
@@ -164,9 +168,12 @@ export const es: TranslationResources = {
       title: 'Perfil',
       caption: 'Aquí podrás ver y editar tu cuenta cuando conectemos el backend.',
       openPaywall: 'Apoyar CiclePark',
-      premiumActive: 'Modo supporter activo',
+      supporterThankYouTitle: 'Gracias por formar parte de CiclePark',
+      supporterThankYouBody:
+        'Tu apoyo ayuda a mantener y mejorar el mapa de aparcabicis. ¡Significa mucho para el proyecto!',
       a11y: {
         back: 'Volver',
+        supporterCard: 'Eres supporter de CiclePark. Gracias por tu apoyo al proyecto.',
       },
     },
     paywall: {
@@ -207,6 +214,7 @@ export const es: TranslationResources = {
       appearance: {
         rowTitle: 'Modo oscuro',
         sheetTitle: 'Modo oscuro',
+        sheetSubtitle: 'Toca una opción para aplicarla al instante.',
         system: 'Automático',
         light: 'Claro',
         dark: 'Oscuro',
@@ -214,6 +222,7 @@ export const es: TranslationResources = {
       language: {
         rowTitle: 'Idioma',
         sheetTitle: 'Idioma',
+        sheetSubtitle: 'Toca el idioma que quieres usar en toda la app.',
         system: 'Automático',
         es: 'Español',
         en: 'English',
