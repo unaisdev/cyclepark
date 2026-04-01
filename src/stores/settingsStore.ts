@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
+import { applyAppearancePreference } from '../theme/applyAppearancePreference';
 import type {
   AppearancePreference,
   LocalePreference,
@@ -28,7 +29,10 @@ export const useSettingsStore = create<SettingsState>()(
       appearance: 'system',
       localeMode: 'system',
       mapHomeMapType: 'standard',
-      setAppearance: (appearance) => set({ appearance }),
+      setAppearance: (appearance) => {
+        applyAppearancePreference(appearance);
+        set({ appearance });
+      },
       setLocaleMode: (localeMode) => set({ localeMode }),
       setMapHomeMapType: (mapHomeMapType) => set({ mapHomeMapType }),
     }),
