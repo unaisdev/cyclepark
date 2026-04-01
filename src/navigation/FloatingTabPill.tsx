@@ -1,5 +1,6 @@
-import { memo, useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 import Animated, {
+  cancelAnimation,
   Easing,
   ReduceMotion,
   useAnimatedStyle,
@@ -29,31 +30,30 @@ export type FloatingTabPillProps = {
   tabIndex: number;
 };
 
-function FloatingTabPillInner({ pillWidth, tabIndex }: FloatingTabPillProps) {
-  const segmentWidth = useSharedValue(0);
-  const activeIndex = useSharedValue(tabIndex);
+/**
+ * Un solo `translateX` animado (no `activeIndex * segmentWidth` en el worklet):
+ * en Reanimated, dos shared values que se actualizan por efectos distintos pueden
+ * desincronizarse un frame y dejar la píldora en translateX 0 (= primera tab).
+ */
+export function FloatingTabPill({ pillWidth, tabIndex }: FloatingTabPillProps) {
+  const segment = Math.max(pillWidth, 0);
+  const translateX = useSharedValue(tabIndex * segment);
 
-  console.log("render floating tab pill");
-
-  useEffect(() => {
-    segmentWidth.value = pillWidth;
-  }, [pillWidth, segmentWidth]);
-
-  useEffect(() => {
-    activeIndex.value = withTiming(tabIndex, {
+  useLayoutEffect(() => {
+    const target = tabIndex * segment;
+    cancelAnimation(translateX);
+    translateX.value = withTiming(target, {
       duration: PILL_MS,
       easing: PILL_EASING,
       reduceMotion: ReduceMotion.System,
     });
-  }, [tabIndex, activeIndex]);
+  }, [segment, tabIndex, translateX]);
 
   const pillStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: activeIndex.value * segmentWidth.value }],
+    transform: [{ translateX: translateX.value }],
   }));
 
   return (
-    <Animated.View style={[styles.pill, pillWidth > 0 && { width: pillWidth }, pillStyle]} />
+    <Animated.View style={[styles.pill, segment > 0 && { width: segment }, pillStyle]} />
   );
 }
-
-export const FloatingTabPill = memo(FloatingTabPillInner);

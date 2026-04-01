@@ -1,9 +1,10 @@
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { TabActions } from "@react-navigation/routers";
 import type { LucideIcon } from "lucide-react-native";
 import { Heart, Map, Settings } from "lucide-react-native";
 import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Dimensions, Pressable, Text, View } from "react-native";
+import { Dimensions, Platform, Pressable, Text, View } from "react-native";
 import Animated, {
   Easing,
   interpolate,
@@ -54,6 +55,13 @@ const styles = StyleSheet.create((theme) => ({
     bottom: 0,
     paddingHorizontal: theme.layout.space4,
     alignItems: "center",
+    /**
+     * Por encima del cromado del mapa (p. ej. elevation ~36) para que la barra
+     * reciba toques y la píldora no quede “detrás” del mapa en Android.
+     */
+    ...(Platform.OS === "android"
+      ? { elevation: 52, zIndex: 100 }
+      : null),
   },
   bar: {
     width: "100%",
@@ -221,7 +229,10 @@ export function FloatingTabBar({
                 canPreventDefault: true,
               });
               if (!isFocused && !event.defaultPrevented) {
-                navigation.navigate(route.name);
+                navigation.dispatch({
+                  ...TabActions.jumpTo(route.name),
+                  target: state.key,
+                });
               }
             };
 

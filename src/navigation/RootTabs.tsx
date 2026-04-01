@@ -2,6 +2,7 @@ import {
   createBottomTabNavigator,
   type BottomTabBarProps,
 } from "@react-navigation/bottom-tabs";
+import { useUnistyles } from "react-native-unistyles";
 import { ListScreen } from "../screens/ListScreen";
 import { MapScreen } from "../screens/MapScreen";
 import { SettingsScreen } from "../screens/settings/SettingsScreen";
@@ -16,6 +17,7 @@ function renderFloatingTabBar(props: BottomTabBarProps) {
 }
 
 export function RootTabs() {
+  const { theme } = useUnistyles();
   return (
     <Tab.Navigator
       tabBar={renderFloatingTabBar}
@@ -23,6 +25,7 @@ export function RootTabs() {
       screenOptions={{
         headerShown: false,
         animation: "none",
+        sceneStyle: { backgroundColor: theme.app.background },
       }}
     >
       <Tab.Screen name="Map" component={MapScreen} />
