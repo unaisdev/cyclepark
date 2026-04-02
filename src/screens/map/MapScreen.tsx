@@ -9,7 +9,7 @@ import { isCancelledError } from '@tanstack/react-query';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Alert, Platform, Pressable, Text, useWindowDimensions, View } from 'react-native';
-import MapView, { Marker, type Region } from 'react-native-maps';
+import MapView, { Details, Marker, type Region } from 'react-native-maps';
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -314,9 +314,9 @@ export function MapScreen() {
   }, [mapOsmRequestFeedback]);
 
   const onMapRegionChangeStart = useCallback(
-    (e: { nativeEvent: { isGesture?: boolean } }) => {
+    (e: Region, details: Details) => {
       if (Platform.OS === 'web') return;
-      if (e.nativeEvent.isGesture !== true) return;
+      if (details.isGesture !== true) return;
       hideMapHeaderChrome();
     },
     [hideMapHeaderChrome],
