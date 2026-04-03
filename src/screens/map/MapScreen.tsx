@@ -8,7 +8,15 @@ import { useLocales } from 'expo-localization';
 import { isCancelledError } from '@tanstack/react-query';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Alert, Platform, Pressable, Text, useWindowDimensions, View } from 'react-native';
+import {
+  Alert,
+  NativeSyntheticEvent,
+  Platform,
+  Pressable,
+  Text,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import MapView, { Details, Marker, type Region } from 'react-native-maps';
 import Animated, {
   Easing,
@@ -314,9 +322,9 @@ export function MapScreen() {
   }, [mapOsmRequestFeedback]);
 
   const onMapRegionChangeStart = useCallback(
-    (e: Region, details: Details) => {
+    (event: NativeSyntheticEvent<Details>) => {
       if (Platform.OS === 'web') return;
-      if (details.isGesture !== true) return;
+      if (event.nativeEvent?.isGesture !== true) return;
       hideMapHeaderChrome();
     },
     [hideMapHeaderChrome],
